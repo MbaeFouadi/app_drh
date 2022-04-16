@@ -1,0 +1,79 @@
+.fi{
+    border: 1px solid black ;
+    /* width: 35%; */
+    padding-left: 25px;
+    padding-right: 25px;
+
+}
+.bloc1{
+    margin-top: 25px;
+    margin-left: 225px;
+}
+img{
+    width: 55px;
+
+}
+
+.logo{
+    margin-top:65px;
+    padding-right: 30px;
+}
+.grand-bloc{
+    margin-top: 45px;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+
+
+
+    /* padding-top: 55%; */
+}
+.formation{
+    /* border-right: none; */
+    border-top: 1px solid black ;
+
+}
+
+.statut{
+    border-block: 1px solid black ;
+
+}
+/* .avancement{
+    border: 1px solid black ;
+
+} */
+.affectation{
+    border-top: 1px solid black ;
+
+}
+.etat{
+    border-top: 1px solid black ;
+
+}
+.aff{
+    border-left: 1px solid black;
+
+}
+
+.signature{
+    border-bottom: 1px solid black;
+}
+
+.tex{
+    margin-top: 130px;
+}
+
+.et{
+    margin-top:100px;
+}
+
+.fa  {
+    border:1px solid black;
+    padding-left:12px;
+    padding-right:12px;
+}
+
+.da{
+    margin-left: -6px;
+}
