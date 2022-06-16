@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\employer;
 use App\Models\employer_formation;
 use App\Models\statut;
 use App\Models\formation;
@@ -68,13 +69,14 @@ class StatutController extends Controller
         ]);
         $statut=statut::where('user_id',Auth::user()->id)->orderByDesc('id')->first();
         $employer_formation=employer_formation::where('user_id',Auth::user()->id)->orderByDesc('id')->first();
+        $employers=employer::where('user_id',Auth::user()->id)->orderByDesc('id')->first();
 
         //  $upd=DB::table('employers')
         // ->where('user_id',Auth::user()->id)
         // ->update(['statut_id',$statut->id]);
 
         $update = DB::table('employers')
-        ->where('id',$employer_formation->employer_id)
+        ->where('id',$employers->id)
         ->update(['statut_id' => $statut->id]);
 
 

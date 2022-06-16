@@ -1,0 +1,17 @@
+#trait{
+    border-bottom: 1px solid black;
+    
+}
+p{
+    font-size: 20px;
+}
+.entete{ 
+    font-size: 16px;
+   
+}
+.pied{
+    font-size: 15px;
+}
+span{
+    border-bottom: 1px solid black;
+}

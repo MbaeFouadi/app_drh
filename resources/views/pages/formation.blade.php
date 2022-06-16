@@ -91,7 +91,7 @@
                       @error('genre')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
-                      <label for="exampleInputPassword1">Genre</label>
+                      <label for="exampleInputPassword1">Filière</label>
                       <input type="text" name="genre" class="form-control  @error('genre') is-invalid @enderror" id="exampleInputPassword1" placeholder="Genre">
                     </div>
                   </div>
@@ -108,7 +108,9 @@
 
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-info btn-sm">Enregistrer</button>
+                  <button type="submit" class="btn btn-info btn-sm">Enregistrer et enregistrer une autre formation</button>
+                  <a href="{{route('statut')}}"class="btn btn-info btn-sm text-right">Suivant</a>
+                  <a href="{{route('accueil')}}"class="btn btn-info btn-sm text-right">Quitter</a>
                   {{-- <button type="submit" class="btn btn-warning">Modifier</button>
                   <button type="submit" class="btn btn-danger">Supprimer</button> --}}
                 </div>

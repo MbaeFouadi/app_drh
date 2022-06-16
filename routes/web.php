@@ -18,9 +18,11 @@ use App\Http\Controllers\affectationsController;
 use App\Http\Controllers\annee_statutController;
 use App\Http\Controllers\recherche_statutController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\ContratController;
 use App\Http\Controllers\recherche_formationController;
 use App\Http\Controllers\recherche_avancementController;
 use App\Http\Controllers\recherche_affectationController;
+use App\Http\Controllers\RetraiteController;
 use App\Http\Controllers\statistiqueController;
 
 /*
@@ -39,6 +41,7 @@ use App\Http\Controllers\statistiqueController;
 // });
 
 Route::get('/accueil', function () {
+   
     $role = DB::table('role_user')
     ->join('roles', 'role_user.role_id', '=', 'roles.id')
     ->select('role_user.*','roles.*')
@@ -117,6 +120,54 @@ Route::get('/fiche',[ficheController::class,'recherche'])->name('fiche')->middle
 Route::get('/fiche_signaletique/{id}',[ficheController::class, 'fiche_signaletique'])->name('fiche_signaletique');
 Route::get('/Statistique_composantes',[statistiqueController::class, 'composantes'])->name('composantes');
 Route::get('/Statistique_genre',[statistiqueController::class, 'genre'])->name('genre');
+Route::resource('/retraites',RetraiteController::class)->middleware(['auth']);
+Route::get('/Periode_retraites',[RetraiteController::class, 'pageRe'])->name('page_re');
+Route::get('/liste_retraites',[RetraiteController::class, 'liste_retraites'])->name('liste_retraites');
+Route::get("/contrat_normal_cdd",[ContratController::class,'index']);
+Route::get("/contrat_normal_cdi",[ContratController::class,'cdi']);
+Route::get("/contrat_forfaitaire",[ContratController::class,'contrat_forfaitaire']);
+Route::get("/contrat_corps_enseignant",[ContratController::class,'contrat_corps_enseignant']);
+Route::get("/contrat_vacation",[ContratController::class,'contrat_vacation']);
+Route::get("/contrat_femme_menage",[ContratController::class,'contrat_femme_menage']);
+Route::get("/contrat_securite",[ContratController::class,'contrat_securite']);
+Route::get("/liste_contrat/{id}",[ContratController::class,'liste_contrat'])->name('liste_contrat');
+Route::get("/edition_contrat/{id}",[ContratController::class,'edition_contrat'])->name('edition');
+Route::post("/form_cdd",[ContratController::class,'form_cdd'])->name('form_cdd');
+Route::post("/form_cdi",[ContratController::class,'form_cdi'])->name('form_cdi');
+Route::post("/form_femme_menage",[ContratController::class,'form_femme_menage'])->name('form_femme_menage');
+Route::post("/form_forfaitaire",[ContratController::class,'form_forfaitaire'])->name('form_forfaitaire');
+Route::post("/form_securite",[ContratController::class,'form_securite'])->name('form_securite');
+Route::post("/form_vacation",[ContratController::class,'form_vacation'])->name('form_vacation');
+Route::get("/liste_cdd",[ContratController::class,'liste_cdd'])->name('liste_cdd');
+Route::get("/liste_cdi",[ContratController::class,'liste_cdi'])->name('liste_cdi');
+Route::get("/contrat_cdd/{id}",[ContratController::class,'contrat_cdd'])->name('contrat_cdd');
+Route::get("/contrat_cdi/{id}",[ContratController::class,'contrat_cdi'])->name('contrat_cdi');
+Route::post('/grilles_indiciaires',[affectationsController::class,'grilles_indiciaires'])->middleware(['auth'])->name('grilles_indiciaires');
+Route::get('/grilles_corps',[affectationsController::class,'corps_grille'])->middleware(['auth'])->name('corps_grille');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -17,31 +17,70 @@ class anneesSeeder extends Seeder
         //
 
         DB::table('annees')->insert([
-            'annee' => '2020',
+            'annee' => '2003',
         ]);
 
         DB::table('annees')->insert([
-            'annee' => '2019',
+            'annee' => '2004',
         ]);
 
         DB::table('annees')->insert([
-            'annee' => '2018',
+            'annee' => '2005',
         ]);
 
         DB::table('annees')->insert([
-            'annee' => '2017',
+            'annee' => '2006',
         ]);
 
         DB::table('annees')->insert([
-            'annee' => '2016',
+            'annee' => '2007',
         ]);
 
+        DB::table('annees')->insert([
+            'annee' => '2008',
+        ]);
+
+        DB::table('annees')->insert([
+            'annee' => '2009',
+        ]);
+        DB::table('annees')->insert([
+            'annee' => '2010',
+        ]);
+        DB::table('annees')->insert([
+            'annee' => '2011',
+        ]);
+        DB::table('annees')->insert([
+            'annee' => '2012',
+        ]);
+        DB::table('annees')->insert([
+            'annee' => '2013',
+        ]);
+        DB::table('annees')->insert([
+            'annee' => '2014',
+        ]);
         DB::table('annees')->insert([
             'annee' => '2015',
         ]);
-
         DB::table('annees')->insert([
-            'annee' => '2014',
+            'annee' => '2016',
+        ]);
+        DB::table('annees')->insert([
+            'annee' => '2017',
+        ]);
+        DB::table('annees')->insert([
+            'annee' => '2018',
+        ]);
+        DB::table('annees')->insert([
+            'annee' => '2019',
+        ]);
+        DB::table('annees')->insert([
+            'annee' => '2020',
+        ]);
+        DB::table('annees')->insert([
+            'annee' => '2021',
+        ]);
+        DB::table('annees')->insert([
+            'annee' => '2022',
         ]);
 
 

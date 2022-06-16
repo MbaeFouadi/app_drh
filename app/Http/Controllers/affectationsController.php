@@ -197,4 +197,237 @@ class affectationsController extends Controller
     // {
 
     // }
+
+    public function grilles_indiciaires(Request $request)
+    {
+        $role = DB::table('role_user')
+        ->join('roles', 'role_user.role_id', '=', 'roles.id')
+        ->select('role_user.*','roles.*')
+        ->where("role_user.user_id",Auth::user()->id)->first();
+        // dd($corps);
+
+        $corps=DB::table("corps")
+        ->join('classes_corps_echelons_indices_periodes','classes_corps_echelons_indices_periodes.corps_id','=','corps.id')
+        ->select('corps.nom as nom','corps.id as id','classes_corps_echelons_indices_periodes.periodes_id as periodes_id')
+        ->distinct()
+        ->where("periodes_id",$request->annee_id)
+        ->where("corps.id",$request->corps_id)
+        ->get();
+
+        
+        $classes=DB::table("classes")
+        ->join('classes_corps_echelons_indices_periodes','classes_corps_echelons_indices_periodes.classes_id','=','classes.id')
+        ->join('corps','classes_corps_echelons_indices_periodes.corps_id','=','corps.id')
+        ->select('classes.nom as noms','classes.id as ide','classes_corps_echelons_indices_periodes.periodes_id as periodes_id','classes_corps_echelons_indices_periodes.corps_id as corps_id','corps.*')
+        ->distinct()
+        ->where("periodes_id",9)
+        // ->where("corps_id",$corps->ids)
+        ->orderBy('ide','ASC')
+        ->get();
+
+        $echelons=DB::table("echelons")
+        ->join('classes_corps_echelons_indices_periodes','classes_corps_echelons_indices_periodes.classes_id','=','echelons.id')
+        ->join('corps','classes_corps_echelons_indices_periodes.corps_id','=','corps.id')
+        ->join('classes','classes_corps_echelons_indices_periodes.classes_id','=','classes.id')
+        ->select('classes.nom as noms','classes_corps_echelons_indices_periodes.periodes_id as periodes_id','classes_corps_echelons_indices_periodes.corps_id as corps_id','corps.*','echelons.nom as echelon')
+        ->distinct()
+        ->where("periodes_id",9)
+        // ->where("corps_id",$corps->ids)
+        // ->orderBy('id','ASC')
+        ->get();
+
+        // $Exce=DB::table("classes_corps_echelons_indices_periodes")
+        // ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
+        // ->join("classes",'classes.id',"classes_corps_echelons_indices_periodes.classes_id")
+        // ->join("echelons","echelons.id","=","classes_corps_echelons_indices_periodes.echelons_id")
+        // ->join("indices","indices.id","=","classes_corps_echelons_indices_periodes.indices_id")
+        // ->where("classes_corps_echelons_indices_periodes.corps_id",3)
+        // ->where("classes_corps_echelons_indices_periodes.classes_id",1)
+        // ->where("classes_corps_echelons_indices_periodes.echelons_id",4)
+        // // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        // ->first();
+
+        $p4=DB::table("classes_corps_echelons_indices_periodes")
+        ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
+        ->join("classes",'classes.id',"classes_corps_echelons_indices_periodes.classes_id")
+        ->join("echelons","echelons.id","=","classes_corps_echelons_indices_periodes.echelons_id")
+        ->join("indices","indices.id","=","classes_corps_echelons_indices_periodes.indices_id")
+        ->select("classes_corps_echelons_indices_periodes.*","corps.nom as corp","classes.nom as classe","echelons.nom as echelon","indices.nom as indice")
+        ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
+        ->where("classes_corps_echelons_indices_periodes.classes_id",1)
+        ->where("classes_corps_echelons_indices_periodes.echelons_id",4)
+        // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        ->first();
+
+        $p3=DB::table("classes_corps_echelons_indices_periodes")
+        ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
+        ->join("classes",'classes.id',"classes_corps_echelons_indices_periodes.classes_id")
+        ->join("echelons","echelons.id","=","classes_corps_echelons_indices_periodes.echelons_id")
+        ->join("indices","indices.id","=","classes_corps_echelons_indices_periodes.indices_id")
+        ->select("classes_corps_echelons_indices_periodes.*","corps.nom as corp","classes.nom as classe","echelons.nom as echelon","indices.nom as indices")
+        ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
+        ->where("classes_corps_echelons_indices_periodes.classes_id",2)
+        ->where("classes_corps_echelons_indices_periodes.echelons_id",3)
+        // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        ->first();
+        $p2=DB::table("classes_corps_echelons_indices_periodes")
+        ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
+        ->join("classes",'classes.id',"classes_corps_echelons_indices_periodes.classes_id")
+        ->join("echelons","echelons.id","=","classes_corps_echelons_indices_periodes.echelons_id")
+        ->join("indices","indices.id","=","classes_corps_echelons_indices_periodes.indices_id")
+        ->select("classes_corps_echelons_indices_periodes.*","corps.nom as corp","classes.nom as classe","echelons.nom as echelon","indices.nom as indices")
+        ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
+        ->where("classes_corps_echelons_indices_periodes.classes_id",2)
+        ->where("classes_corps_echelons_indices_periodes.echelons_id",2)
+        // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        ->first();
+        $p1=DB::table("classes_corps_echelons_indices_periodes")
+        ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
+        ->join("classes",'classes.id',"classes_corps_echelons_indices_periodes.classes_id")
+        ->join("echelons","echelons.id","=","classes_corps_echelons_indices_periodes.echelons_id")
+        ->join("indices","indices.id","=","classes_corps_echelons_indices_periodes.indices_id")
+        ->select("classes_corps_echelons_indices_periodes.*","corps.nom as corp","classes.nom as classe","echelons.nom as echelon","indices.nom as indices")
+        ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
+        ->where("classes_corps_echelons_indices_periodes.classes_id",2)
+        ->where("classes_corps_echelons_indices_periodes.echelons_id",1)
+        // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        ->first();
+        $first3=DB::table("classes_corps_echelons_indices_periodes")
+        ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
+        ->join("classes",'classes.id',"classes_corps_echelons_indices_periodes.classes_id")
+        ->join("echelons","echelons.id","=","classes_corps_echelons_indices_periodes.echelons_id")
+        ->join("indices","indices.id","=","classes_corps_echelons_indices_periodes.indices_id")
+        ->select("classes_corps_echelons_indices_periodes.*","corps.nom as corp","classes.nom as classe","echelons.nom as echelon","indices.nom as indices")
+        ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
+        ->where("classes_corps_echelons_indices_periodes.classes_id",3)
+        ->where("classes_corps_echelons_indices_periodes.echelons_id",3)
+        // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        ->first();
+        $first2=DB::table("classes_corps_echelons_indices_periodes")
+        ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
+        ->join("classes",'classes.id',"classes_corps_echelons_indices_periodes.classes_id")
+        ->join("echelons","echelons.id","=","classes_corps_echelons_indices_periodes.echelons_id")
+        ->join("indices","indices.id","=","classes_corps_echelons_indices_periodes.indices_id")
+        ->select("classes_corps_echelons_indices_periodes.*","corps.nom as corp","classes.nom as classe","echelons.nom as echelon","indices.nom as indices")
+        ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
+        ->where("classes_corps_echelons_indices_periodes.classes_id",3)
+        ->where("classes_corps_echelons_indices_periodes.echelons_id",2)
+        // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        ->first();
+        $first1=DB::table("classes_corps_echelons_indices_periodes")
+        ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
+        ->join("classes",'classes.id',"classes_corps_echelons_indices_periodes.classes_id")
+        ->join("echelons","echelons.id","=","classes_corps_echelons_indices_periodes.echelons_id")
+        ->join("indices","indices.id","=","classes_corps_echelons_indices_periodes.indices_id")
+        ->select("classes_corps_echelons_indices_periodes.*","corps.nom as corp","classes.nom as classe","echelons.nom as echelon","indices.nom as indices")
+        ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
+        ->where("classes_corps_echelons_indices_periodes.classes_id",3)
+        ->where("classes_corps_echelons_indices_periodes.echelons_id",1)
+        // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        ->first();
+        $first4=DB::table("classes_corps_echelons_indices_periodes")
+        ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
+        ->join("classes",'classes.id',"classes_corps_echelons_indices_periodes.classes_id")
+        ->join("echelons","echelons.id","=","classes_corps_echelons_indices_periodes.echelons_id")
+        ->join("indices","indices.id","=","classes_corps_echelons_indices_periodes.indices_id")
+        ->select("classes_corps_echelons_indices_periodes.*","corps.nom as corp","classes.nom as classe","echelons.nom as echelon","indices.nom as indices")
+        ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
+        ->where("classes_corps_echelons_indices_periodes.classes_id",3)
+        ->where("classes_corps_echelons_indices_periodes.echelons_id",4)
+        // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        ->first();
+        $second4=DB::table("classes_corps_echelons_indices_periodes")
+        ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
+        ->join("classes",'classes.id',"classes_corps_echelons_indices_periodes.classes_id")
+        ->join("echelons","echelons.id","=","classes_corps_echelons_indices_periodes.echelons_id")
+        ->join("indices","indices.id","=","classes_corps_echelons_indices_periodes.indices_id")
+        ->select("classes_corps_echelons_indices_periodes.*","corps.nom as corp","classes.nom as classe","echelons.nom as echelon","indices.nom as indices")
+        ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
+        ->where("classes_corps_echelons_indices_periodes.classes_id",4)
+        ->where("classes_corps_echelons_indices_periodes.echelons_id",4)
+        // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        ->first();
+        $second3=DB::table("classes_corps_echelons_indices_periodes")
+        ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
+        ->join("classes",'classes.id',"classes_corps_echelons_indices_periodes.classes_id")
+        ->join("echelons","echelons.id","=","classes_corps_echelons_indices_periodes.echelons_id")
+        ->join("indices","indices.id","=","classes_corps_echelons_indices_periodes.indices_id")
+        ->select("classes_corps_echelons_indices_periodes.*","corps.nom as corp","classes.nom as classe","echelons.nom as echelon","indices.nom as indices")
+        ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
+        ->where("classes_corps_echelons_indices_periodes.classes_id",4)
+        ->where("classes_corps_echelons_indices_periodes.echelons_id",3)
+        // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        ->first();
+        $second2=DB::table("classes_corps_echelons_indices_periodes")
+        ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
+        ->join("classes",'classes.id',"classes_corps_echelons_indices_periodes.classes_id")
+        ->join("echelons","echelons.id","=","classes_corps_echelons_indices_periodes.echelons_id")
+        ->join("indices","indices.id","=","classes_corps_echelons_indices_periodes.indices_id")
+        ->select("classes_corps_echelons_indices_periodes.*","corps.nom as corp","classes.nom as classe","echelons.nom as echelon","indices.nom as indices")
+        ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
+        ->where("classes_corps_echelons_indices_periodes.classes_id",4)
+        ->where("classes_corps_echelons_indices_periodes.echelons_id",2)
+        // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        ->first();
+        $second1=DB::table("classes_corps_echelons_indices_periodes")
+        ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
+        ->join("classes",'classes.id',"classes_corps_echelons_indices_periodes.classes_id")
+        ->join("echelons","echelons.id","=","classes_corps_echelons_indices_periodes.echelons_id")
+        ->join("indices","indices.id","=","classes_corps_echelons_indices_periodes.indices_id")
+        ->select("classes_corps_echelons_indices_periodes.*","corps.nom as corp","classes.nom as classe","echelons.nom as echelon","indices.nom as indices")
+        ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
+        ->where("classes_corps_echelons_indices_periodes.classes_id",4)
+        ->where("classes_corps_echelons_indices_periodes.echelons_id",1)
+        // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        ->first();
+        $stagiaire=DB::table("classes_corps_echelons_indices_periodes")
+        ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
+        ->join("classes",'classes.id',"classes_corps_echelons_indices_periodes.classes_id")
+        ->join("echelons","echelons.id","=","classes_corps_echelons_indices_periodes.echelons_id")
+        ->join("indices","indices.id","=","classes_corps_echelons_indices_periodes.indices_id")
+        ->select("classes_corps_echelons_indices_periodes.*","corps.nom as corp","classes.nom as classe","echelons.nom as echelon","indices.nom as indices")
+        ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
+        ->where("classes_corps_echelons_indices_periodes.classes_id",4)
+        ->where("classes_corps_echelons_indices_periodes.echelons_id",5)
+        // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        ->first();
+
+
+
+        
+
+        // $grille= DB::table('classes_corps_echelons_indices_periodes')
+        // ->join('corps', 'statuts.corps_id', '=', 'corps.id')
+        // ->join('echelons', 'statuts.echelons_id', '=', 'echelons.id')
+        // ->join('indices', 'statuts.indices_id', '=', 'indices.id')
+        // ->join('classes', 'statuts.classes_id', '=', 'classes.id')
+        // ->select('statuts.*','corps.nom as corp','echelons.nom as echelon','indices.nom as indice','classes.nom as classe')
+        // ->where("statuts.id",)->first();
+
+
+        return view('pages.grilles_indiciaires',compact('role','corps','classes','echelons','p4','p3','p2','p1','first1','first2','first3','first4','second1','second2','second3','second4','stagiaire'));
+
+    }
+
+    public function corps_grille(){
+
+        $role = DB::table('role_user')
+        ->join('roles', 'role_user.role_id', '=', 'roles.id')
+        ->select('role_user.*','roles.*')
+        ->where("role_user.user_id",Auth::user()->id)->first();
+        // $corps=corps::all();
+        // $annees=annees::all();
+        $corps=DB::table("corps")
+        ->join('classes_corps_echelons_indices_periodes','classes_corps_echelons_indices_periodes.corps_id','=','corps.id')
+        ->join('annees','classes_corps_echelons_indices_periodes.periodes_id','=','annees.id')
+        ->select('corps.nom as nom','corps.id as id_corps','classes_corps_echelons_indices_periodes.periodes_id as periodes_id','annees.annee as annee','annees.id as id_annee')
+        ->distinct()
+        ->get();
+        $annees=DB::table("classes_corps_echelons_indices_periodes")
+        ->join('annees','classes_corps_echelons_indices_periodes.periodes_id','=','annees.id')
+        ->select('classes_corps_echelons_indices_periodes.periodes_id as periodes_id','annees.annee as annee','annees.id as id_annee')
+        ->distinct()
+        ->get();
+        return view('pages.corps_grille',compact('role','corps','annees'));
+    }
 }

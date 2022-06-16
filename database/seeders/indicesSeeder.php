@@ -17,12 +17,20 @@ class indicesSeeder extends Seeder
     {
         //
 
-        $faker=Faker::create();
+        // $faker=Faker::create();
 
-        foreach(range(1,10) as $value)
+        // foreach(range(1,10) as $value)
+        // {
+        //     DB::table('indices')->insert([
+        //         'nom'=>$faker->numberBetween(400,3000),
+
+        //     ]);
+        // }
+
+        for($i=400;$i<=4000;$i++)
         {
             DB::table('indices')->insert([
-                'nom'=>$faker->numberBetween(400,3000),
+                'nom'=>$i,
 
             ]);
         }

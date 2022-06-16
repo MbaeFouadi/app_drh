@@ -52,6 +52,7 @@
           <div class="col-2">Sexe :{{$employer->sexe}}</div>
           <div class="col-10"> {{$employer->statut }} {{$employer->nombre_enfant }} Enfant dont {{$employer->nombre_charge }} charge Né(e) en {{$employer->naissance }}</div>
         </div>
+      @if($formations->count()>0)
       </div><br><br>
     <span style="border-right:1px solid black;padding-left:12px;padding-right:12px;border-top:1px solid black;"><b>Formation Académique</b></span>
       <div class="formation">
@@ -62,6 +63,8 @@
           @endforeach
 
         </div><br><br><br><br><br><br><br><br>
+        @endif
+
         {{-- <div class="row">
           <div class="col-md-6">Ingenieur </div>
           <div class="col-md-6"> Moroni</div>
@@ -71,18 +74,22 @@
       </div>
       <div class="statut">
         <div class="">Recruté le {{$statut->date_re }} par note {{$statut->note}} du decision {{ $statut->date_dec}}</div>
-        <div>Corps:{{$grille->corp }} {{$grille->classe }} Class   Echelon:{{$grille->echelon }}</div>
+        <div>Corps:{{$grille->corp }}  Classe:{{$grille->classe }} Echelon:{{$grille->echelon }}</div>
         <div>indice:{{$grille->indice}}</div>
         <div> Ministere d'origine: {{$statut->ministere}}</div><br>
-      <span style="border-right:1px solid black;padding-left:12px;padding-right:12px;border-top:1px solid black;"><b>Statut Actuel</b></span><span style="margin-left:10px">Latos</span>
+        @if($avancements->count()>0)
+        <span style="border-right:1px solid black;padding-left:12px;padding-right:12px;border-top:1px solid black;"><b>Statut Actuel</b></span><span style="margin-left:10px">Iatos</span>
 
       </div>
+     
       <div class="avancement">
         @foreach ($avancements as $avancement)
         <div class="">Avancé le {{$avancement->date_avan }} par décision {{$avancement->note}} du {{$avancement->date_dec}}</div>
         <div>Corps: {{$grilles->corp}} {{$grilles->classe }} Class   Echelon:{{$grilles->echelon}}</div>
         <div>indice:{{$grilles->indice}}</div><br><br>
         @endforeach
+        @endif
+      
 
     <span style="border-right:1px solid black;padding-left:12px;padding-right:12px;border-top:1px solid black;"><b>Affectation</b></span><span style="margin-left:10px">Université des Comores</span>
 
@@ -95,7 +102,7 @@
             <div>Structure :{{ $composante->service }}</div>
             <div>N° Poste de travail:{{ $composante->numero_post }}</div>
             <div>Fonction: {{ $composante->nom }}</div><br>
-            <div>Position : {{ $composante->position }}</div>
+            <div>Position : {{$employers->position}}</div>
 
 
             <br><br><br>

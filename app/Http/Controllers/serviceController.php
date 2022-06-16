@@ -19,13 +19,20 @@ class serviceController extends Controller
      */
     public function index()
     {
-        $services = service::all();
+        // $services = service::all();
+
+
+        $services=DB::table('services')
+        ->join('composantes','services.composante_id','=','composantes.id')
+        ->select('services.id','services.nom','services.code_des','services.composante_id','composantes.code_des as composante')
+        // ->distinct()
+        ->get();
         $composantes = composante::all();
         $role = DB::table('role_user')
-        ->join('roles', 'role_user.role_id', '=', 'roles.id')
-        ->select('role_user.*','roles.*')
-        ->where("role_user.user_id",Auth::user()->id)->first();
-        return view('pages.service',compact('services','composantes','role'));
+            ->join('roles', 'role_user.role_id', '=', 'roles.id')
+            ->select('role_user.*', 'roles.*')
+            ->where("role_user.user_id", Auth::user()->id)->first();
+        return view('pages.service', compact('services', 'composantes', 'role'));
     }
 
     /**
@@ -35,7 +42,11 @@ class serviceController extends Controller
      */
     public function create()
     {
-        return view('pages.service');
+        $role = DB::table('role_user')
+            ->join('roles', 'role_user.role_id', '=', 'roles.id')
+            ->select('role_user.*', 'roles.*')
+            ->where("role_user.user_id", Auth::user()->id)->first();
+        return view('pages.service', compact('role'));
     }
 
     /**
@@ -52,24 +63,28 @@ class serviceController extends Controller
             'composante' => 'required',
         ]);
 
-        $service=DB::table('services')->where('nom',$request->nom)->where('composante_id',$request->composante)->get();
+        $service = DB::table('services')->where('nom', $request->nom)->where('composante_id', $request->composante)->get();
 
-        if($service->count()==1){
-
-            $services = service::all();
-            $composantes = composante::all();
-            $msg="Cette service existe dejà";
-            return  view('pages.service',compact('services','composantes','msg'));
-
-        }
-        else{
+        if ($service->count() == 1) {
 
             $services = service::all();
             $composantes = composante::all();
-            service::create(['nom'=>$request->nom,'code_des'=>$request->code,'composante_id'=>$request->composante]);
-            return  view('pages.service',compact('services','composantes'));
+            $msg = "Cette service existe dejà";
+            $role = DB::table('role_user')
+                ->join('roles', 'role_user.role_id', '=', 'roles.id')
+                ->select('role_user.*', 'roles.*')
+                ->where("role_user.user_id", Auth::user()->id)->first();
+            return  view('pages.service', compact('services', 'composantes', 'msg','role'));
+        } else {
+            $role = DB::table('role_user')
+                ->join('roles', 'role_user.role_id', '=', 'roles.id')
+                ->select('role_user.*', 'roles.*')
+                ->where("role_user.user_id", Auth::user()->id)->first();
+            $services = service::all();
+            $composantes = composante::all();
+            service::create(['nom' => $request->nom, 'code_des' => $request->code, 'composante_id' => $request->composante]);
+            return  view('pages.service', compact('services', 'composantes','role'));
         }
-
     }
 
     /**
@@ -85,9 +100,20 @@ class serviceController extends Controller
     public function getServiceByComposante($composante_id)
     {
         if ($composante_id == 'all') {
-            return Service::all();
+            return $services=DB::table('services')
+            ->join('composantes','services.composante_id','=','composantes.id')
+            ->select('services.id','services.nom','services.code_des','services.composante_id','composantes.code_des as composante')
+            // ->select('services.id','services.nom','services.code_des','services.composante_id')
+            ->get();
+            // return Service::all();
         }
-        return Service::where('composante_id', $composante_id)->get();
+        return $services=DB::table('services')
+            ->join('composantes','services.composante_id','=','composantes.id')
+            ->select('services.id','services.nom','services.code_des','services.composante_id','composantes.code_des as composante')
+            // ->select('services.id','services.nom','services.code_des','services.composante_id')
+            ->where('composante_id',$composante_id)
+            ->get();
+        // return Service::where('composante_id', $composante_id)->get();
     }
 
     /**
@@ -117,19 +143,20 @@ class serviceController extends Controller
             'id' => 'required',
         ]);
         $id = $request->id;
-        $nom= $request->nom_service;
+        $nom = $request->nom_service;
         $code = $request->code_service;
         $composante = $request->composante_du_service;
         DB::table('services')
             ->where('id', $id)
-            ->update(['nom' => $nom,'code_des' => $code,'composante_id'=>$composante]);
+            ->update(['nom' => $nom, 'code_des' => $code, 'composante_id' => $composante]);
         return redirect(route('service.index'));
     }
 
-    
+
     public function destroy(Request $request)
     {
         $id = $request->id;
         DB::table('services')->delete($id);
         return redirect()->route('service.index');
-    }}
+    }
+}

@@ -69,7 +69,7 @@ class FormationController extends Controller
 
         ]);
 
-        return redirect(route('statut'));
+        return redirect(route('formation.index'));
 
 
 

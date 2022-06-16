@@ -16,7 +16,6 @@ class CreateAffectationsTable extends Migration
         Schema::create('affectations', function (Blueprint $table) {
             $table->id();
             $table->string("numero_post");
-            $table->string("position");
             $table->timestamps();
             $table->unsignedInteger('composante_id');
             $table->unsignedInteger('affectation_id');

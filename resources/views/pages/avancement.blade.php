@@ -163,6 +163,8 @@
 
                 <div class="card-footer">
                   <button type="submit" class="btn btn-info btn-sm">Enregistrez</button>
+                  <a href="{{route('affectation.index')}}"class="btn btn-info btn-sm text-right">Suivant</a>
+                  <a href="{{route('accueil')}}"class="btn btn-info btn-sm text-right">Quitter</a>
                   {{-- <button type="submit" class="btn btn-warning">Modifier</button>
                   <button type="submit" class="btn btn-danger">Supprimer</button> --}}
                 </div>

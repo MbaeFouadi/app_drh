@@ -71,7 +71,7 @@
                     <label for="exampleInputEmail1">Services</label>
                     <select class="form-control" name="service">
                       @foreach($services as $service)
-                      <option value="{{ $service->id}}">{{ $service->nom }}</option>
+                      <option value="{{ $service->id}}">{{ $service->nom }} ({{$service->composante}})</option>
                       @endforeach
                     </select>
                   </div>
@@ -135,7 +135,7 @@
                     <select class="form-control" id="services">
                       <option value="all" selected>tout</option>
                       @foreach($services as $service)
-                      <option value="{{ $service->id}}">{{ $service->nom }}</option>
+                      <option value="{{ $service->id}}">{{ $service->nom }} ({{$service->composante}}) </option>
                       @endforeach
                     </select>
                   </div>
@@ -162,7 +162,7 @@
                           <tr>
                             <td class="dropdown-item-title mod" data-toggle="modal" data-target="#modelId"
                                 onclick='document.getElementById("serviceModal").value="{{ $fonction->service_id }}";document.getElementById("categorieModal").value="{{ $fonction->category_id }}";document.getElementById("anneeModal").value="{{ $fonction->annee_id }}";document.getElementById("id_fct").value="{{ $fonction->id }}";document.getElementById("fct").value="{{ $fonction->nom }}";document.getElementById("nbr").value="{{ $fonction->nombre }}";document.getElementById("idfct").value="{{ $fonction->id }}"'>
-                              {{ $fonction->nom }}
+                              {{ $fonction->nom }} ({{ $fonction->service }})
                             </td>
                           </tr>
                       @endforeach
@@ -224,7 +224,7 @@
                 <label for="exampleInputEmail1">Service</label>
                 <select class="form-control" name="service_fonction" id="serviceModal">
                   @foreach($services as $service)
-                  <option value="{{ $service->id}}">{{ $service->nom }}</option>
+                  <option value="{{ $service->id}}">{{ $service->nom }} </option>
                   @endforeach
                 </select>
               </div>
@@ -330,7 +330,8 @@
         $.get('/getServiceByComposante/'+value, function (data) {
           let options = ''
           data.forEach( function (service) {
-            options += `<option value="${service.id}">${service.nom }</option>`
+            options += `<option value="${service.id}">${service.nom } (${service.composante })
+            </option>`
           });
           selectTargetService.innerHTML = options
         })
@@ -347,12 +348,12 @@
         $.get('/getFonctionByService/'+value, function (data) {
           let trs = ''
 
-          data.forEach( function (service) {
+          data.forEach( function (fonction) {
               trs += `
                 <tr>
                   <td class="dropdown-item-title mod" data-toggle="modal" data-target="#modelId"
                         onclick='document.getElementById("serviceModal").value="${ fonction.service_id }";document.getElementById("categorieModal").value="${ fonction.category_id }";document.getElementById("anneeModal").value="${fonction.annee_id }";document.getElementById("id_fct").value="${ fonction.id }";document.getElementById("fct").value="${ fonction.nom }";document.getElementById("nbr").value="${ fonction.nombre }";document.getElementById("idfct").value="${ fonction.id }"'>
-                        ${ fonction.nom }
+                        ${ fonction.nom } (${ fonction.service })
                   </td>
                 </tr>
                 

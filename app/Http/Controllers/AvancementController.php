@@ -82,7 +82,7 @@ class AvancementController extends Controller
             'user_id'=>Auth::user()->id
             ]);
 
-    return redirect(route('affectation.index'));
+    return redirect(route('avancement.index'));
 
 
     }

@@ -15,6 +15,7 @@ class CreateEmployersTable extends Migration
     {
         Schema::create('employers', function (Blueprint $table) {
             $table->id();
+            $table->string("nin");
             $table->string("matricule");
             $table->string("nom");
             $table->string("prenom");
@@ -30,7 +31,11 @@ class CreateEmployersTable extends Migration
             $table->integer("nombre_charge")->default(0);
             $table->string("compte_bancaire");
             $table->unsignedInteger("statut_id");
+            $table->integer("annee_id");
+            $table->integer("position_id");
+            $table->integer("type_contrat_id");
             $table->unsignedInteger("user_id");
+            $table->unsignedInteger("ide");
             $table->timestamps();
         });
 

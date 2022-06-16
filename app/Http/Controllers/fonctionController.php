@@ -24,16 +24,28 @@ class fonctionController extends Controller
      */
     public function index()
     {
-        $fonctions = fonction::all();
+        // $fonctions = fonction::all();
+        $fonctions = DB::table('fonctions')
+            ->join('services', 'fonctions.service_id', '=', 'services.id')
+            ->select('fonctions.*', 'services.code_des as service')
+            // ->select('services.id','services.nom','services.code_des','services.composante_id')
+            ->get();
+        // return Fonction::all();
+
         $composantes = composante::all();
-        $services = service::all();
+        // $services = service::all();
+        $services = DB::table('services')
+            ->join('composantes', 'services.composante_id', '=', 'composantes.id')
+            ->select('services.id', 'services.nom', 'services.code_des', 'services.composante_id', 'composantes.code_des as composante')
+            // ->select('services.id','services.nom','services.code_des','services.composante_id')
+            ->get();
         $categories = categorie::all();
         $annees = annees::all();
         $role = DB::table('role_user')
-        ->join('roles', 'role_user.role_id', '=', 'roles.id')
-        ->select('role_user.*','roles.*')
-        ->where("role_user.user_id",Auth::user()->id)->first();
-        return view('pages.fonction',compact('fonctions','composantes','services','categories','annees','role'));
+            ->join('roles', 'role_user.role_id', '=', 'roles.id')
+            ->select('role_user.*', 'roles.*')
+            ->where("role_user.user_id", Auth::user()->id)->first();
+        return view('pages.fonction', compact('fonctions', 'composantes', 'services', 'categories', 'annees', 'role'));
     }
 
     /**
@@ -62,29 +74,33 @@ class fonctionController extends Controller
             'annee' => 'required',
         ]);
 
-        $fonction=DB::table('fonctions')->where('nom',$request->fonction)->where('nombre',$request->nombre)->where('service_id',$request->service)->where('category_id',$request->categorie)->where('annee_id',$request->annee)->get();
+        $fonction = DB::table('fonctions')->where('nom', $request->fonction)->where('nombre', $request->nombre)->where('service_id', $request->service)->where('category_id', $request->categorie)->where('annee_id', $request->annee)->get();
 
-        if($fonction->count()==1)
-        {
-            $message="Cette fonction existe deja dans ce service";
+        if ($fonction->count() == 1) {
+            $role = DB::table('role_user')
+                ->join('roles', 'role_user.role_id', '=', 'roles.id')
+                ->select('role_user.*', 'roles.*')
+                ->where("role_user.user_id", Auth::user()->id)->first();
+            $message = "Cette fonction existe deja dans ce service";
             $fonctions = fonction::all();
             $composantes = composante::all();
             $services = service::all();
             $categories = categorie::all();
             $annees = annees::all();
-            return view('pages.fonction',compact('fonctions','composantes','services','categories','annees','message'));
-        }
-        else
-        {
+            return view('pages.fonction', compact('fonctions', 'composantes', 'services', 'categories', 'annees', 'message', 'role'));
+        } else {
+            $role = DB::table('role_user')
+                ->join('roles', 'role_user.role_id', '=', 'roles.id')
+                ->select('role_user.*', 'roles.*')
+                ->where("role_user.user_id", Auth::user()->id)->first();
             $fonctions = fonction::all();
             $composantes = composante::all();
             $services = service::all();
             $categories = categorie::all();
             $annees = annees::all();
-            fonction::create(['nom'=>$request->fonction,'nombre'=>$request->nombre,'service_id'=>$request->service,'category_id'=>$request->categorie,'annee_id'=>$request->annee]);
-            return view('pages.fonction',compact('fonctions','composantes','services','categories','annees'));
+            fonction::create(['nom' => $request->fonction, 'nombre' => $request->nombre, 'service_id' => $request->service, 'category_id' => $request->categorie, 'annee_id' => $request->annee]);
+            return view('pages.fonction', compact('fonctions', 'composantes', 'services', 'categories', 'annees', 'role'));
         }
-
     }
 
     /**
@@ -101,9 +117,21 @@ class fonctionController extends Controller
     public function getFonctionByService($service_id)
     {
         if ($service_id == 'all') {
-            return Fonction::all();
+            return  $fonction = DB::table('fonctions')
+                ->join('services', 'fonctions.service_id', '=', 'services.id')
+                ->select('fonctions.*', 'services.code_des as service', 'services.id')
+                // ->select('services.id','services.nom','services.code_des','services.composante_id')
+                ->get();
+            // return Fonction::all();
         }
-        return Fonction::where('service_id', $service_id)->get();
+
+        return $fonction = DB::table('fonctions')
+            ->join('services', 'fonctions.service_id', '=', 'services.id')
+            ->select('fonctions.*', 'services.code_des as service','services.id as service_id')
+            // ->select('services.id','services.nom','services.code_des','services.composante_id')
+            ->where('service_id', $service_id)
+            ->get();
+        // return Fonction::where('service_id', $service_id)->get();
     }
 
 
@@ -140,16 +168,14 @@ class fonctionController extends Controller
             ->update([
                 'nom' => $nom,
                 'nombre' => $nombre,
-                'service_id'=>$service,
-                'category_id'=>$category,
-                'annee_id'=>$annee
+                'service_id' => $service,
+                'category_id' => $category,
+                'annee_id' => $annee
             ]);
-            return redirect(route('fonction.index'));
-        
-    
+        return redirect(route('fonction.index'));
     }
 
-    
+
     public function destroy(Request $request)
     {
         $id = $request->id;

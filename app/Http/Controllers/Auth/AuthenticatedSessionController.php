@@ -19,6 +19,7 @@ class AuthenticatedSessionController extends Controller
     public function create()
     {
         // return view('index');
+        
         $role = DB::table('role_user')
         ->join('roles', 'role_user.role_id', '=', 'roles.id')
         ->select('role_user.*','roles.*')

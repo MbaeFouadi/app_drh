@@ -119,7 +119,7 @@
                   <label for="exampleInputEmail1">Service</label>
                   <select class="form-control">
                     @foreach ($services as $service )
-                    <option value="{{$service->id }}">{{$service->nom}}</option>
+                    <option value="{{$service->id }}">{{$service->nom}} </option>
                     @endforeach
                   </select>
                 </div> --}}
@@ -143,7 +143,7 @@
                         <tr>
                           <td class="dropdown-item-title mod" data-toggle="modal" data-target="#modelId"
                            onclick='document.getElementById("id_serv").value="{{ $service->id }}";document.getElementById("serv").value="{{ $service->nom }}";document.getElementById("cod").value="{{ $service->code_des }}";document.getElementById("selectModalComposante").value="{{ $service->composante_id }}";document.getElementById("idserv").value="{{ $service->id }}"'>
-                            {{ $service->nom }}
+                            {{ $service->nom }} ({{$service->composante}})
                             {{-- <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span> --}}
                           
                           </td>

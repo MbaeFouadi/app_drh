@@ -33,7 +33,6 @@ class ficheController extends Controller
 
 
         $employer = DB::table('employers')
-
         ->where("employers.matricule",'like','%'.$request->search.'%')->first();
 
         $formations = DB::table('employer_formation')
@@ -95,8 +94,12 @@ class ficheController extends Controller
 
 
         $employer = DB::table('employers')
-
         ->where("employers.id",'like','%'.$id.'%')->first();
+
+        $employers = DB::table('employers')
+        ->join('positions','employers.position_id','=','positions.id')
+        ->select('employers.*','positions.*')
+        ->where("employers.id",$employer->id)->first();
 
         $formations = DB::table('employer_formation')
         ->join('formations', 'employer_formation.formation_id', '=', 'formations.id')
@@ -146,6 +149,6 @@ class ficheController extends Controller
         ->orderByDesc('affecation_employers.id')
         ->where("affecation_employers.employer_id",$employer->id)
         ->first();
-        return view('pages.fiche',compact('employer','formations','statut','grille','avancements','grilles','affectation','composante'));
+        return view('pages.fiche',compact('employer','formations','statut','grille','avancements','grilles','affectation','composante','employers'));
     }
 }
