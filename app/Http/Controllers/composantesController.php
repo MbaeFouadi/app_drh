@@ -45,7 +45,7 @@ class composantesController extends Controller
     {
         $request->validate([
             'nom' => 'required|max:255|min:3|unique:composantes,nom',
-            'code' => 'required|min:2|max:4',
+            'code' => 'required|min:2|max:10',
         ]);
         /*$nbrComp = composantes::where('nom', nom)->count();
         $nbrCode = composantes::where('code_des', code)->count();
