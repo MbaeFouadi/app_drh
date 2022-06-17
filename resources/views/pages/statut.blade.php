@@ -73,7 +73,7 @@
                             <select class="form-control" name="annees" id="annees">
                               <option>Année</option>
                               @foreach ($annees as $annee)
-                              <option value="{{$annee->id}}">{{ $annee->annee }}</option>
+                              <option value="{{$annee->id_annee}}">{{ $annee->annee }}</option>
                               @endforeach
                             </select>
                         </div>

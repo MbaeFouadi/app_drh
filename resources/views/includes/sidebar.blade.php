@@ -313,6 +313,34 @@ $nbr = DB::table('conges')->where('motif', 'Demande en cours de traitement')->wh
                   <p class="text-light">Femme Ménange</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('liste_contrat',8) }}" class="nav-link">
+                  <!-- <i class="nav-icon fas fa-asterisk"></i> -->
+                  <i class="nav-icon fas fa-solid fa-minus"></i>
+
+
+                  <p class="text-light">Sécurité</p>
+                </a>
+              </li>
+              
+              <li class="nav-item">
+                <a href="{{ route('liste_contrat',9) }}" class="nav-link">
+                  <!-- <i class="nav-icon fas fa-asterisk"></i> -->
+                  <i class="nav-icon fas fa-solid fa-minus"></i>
+
+
+                  <p class="text-light">Jardinier</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('liste_contrat',10) }}" class="nav-link">
+                  <!-- <i class="nav-icon fas fa-asterisk"></i> -->
+                  <i class="nav-icon fas fa-solid fa-minus"></i>
+
+
+                  <p class="text-light">Chauffeur</p>
+                </a>
+              </li>
             </ul>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -340,7 +368,33 @@ $nbr = DB::table('conges')->where('motif', 'Demande en cours de traitement')->wh
                   <p class="text-light">Sécurité</p>
                 </a>
               </li>
-              
+              <li class="nav-item">
+                <a href="{{ route('liste_contrat',11) }}" class="nav-link">
+                  <!-- <i class="nav-icon fas fa-asterisk"></i> -->
+                  <i class="nav-icon fas fa-solid fa-minus"></i>
+
+
+                  <p class="text-light">Femme de Menage</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('liste_contrat',12) }}" class="nav-link">
+                  <!-- <i class="nav-icon fas fa-asterisk"></i> -->
+                  <i class="nav-icon fas fa-solid fa-minus"></i>
+
+
+                  <p class="text-light">Jardinier</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('liste_contrat',13) }}" class="nav-link">
+                  <!-- <i class="nav-icon fas fa-asterisk"></i> -->
+                  <i class="nav-icon fas fa-solid fa-minus"></i>
+
+
+                  <p class="text-light">Chauffeur</p>
+                </a>
+              </li>
             </ul>
             <li class="nav-item">
             <a href="#" class="nav-link">

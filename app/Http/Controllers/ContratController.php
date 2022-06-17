@@ -1094,6 +1094,18 @@ class ContratController extends Controller
 
             return view('pages.contrat_femme_menage', compact('employer', 'formations', 'statut', 'grille', 'avancements', 'grilles', 'affectation', 'composante', 'employers', 'contrat'));
         }
+        elseif ($contrats->type_contrat_id == 1 && $contrats->contrat_id ==8 ) {
+
+            return view('pages.contrat_securite_cdd', compact('employer', 'formations', 'statut', 'grille', 'avancements', 'grilles', 'affectation', 'composante', 'employers', 'contrat'));
+        }
+        elseif ($contrats->type_contrat_id == 1 && $contrats->contrat_id ==9 ) {
+
+            return view('pages.contrat_jardinier_cdd', compact('employer', 'formations', 'statut', 'grille', 'avancements', 'grilles', 'affectation', 'composante', 'employers', 'contrat'));
+        }
+        elseif ($contrats->type_contrat_id == 1 && $contrats->contrat_id ==10 ) {
+
+            return view('pages.contrat_chauffeur_cdd', compact('employer', 'formations', 'statut', 'grille', 'avancements', 'grilles', 'affectation', 'composante', 'employers', 'contrat'));
+        }
     }
 
     // public function contrat_cdi($id)
@@ -1211,6 +1223,18 @@ class ContratController extends Controller
         } elseif ($contrat->type_contrat_id == 2 && $contrat->contrat_id == 5) {
 
             return view('pages.contrat_securite', compact('employer', 'formations', 'statut', 'grille', 'avancements', 'grilles', 'affectation', 'composante', 'employers', 'contrat'));
+        }
+        elseif ($contrats->type_contrat_id == 2 && $contrats->contrat_id ==11 ) {
+
+            return view('pages.contrat_femme_menage_cdi', compact('employer', 'formations', 'statut', 'grille', 'avancements', 'grilles', 'affectation', 'composante', 'employers', 'contrat'));
+        }
+        elseif ($contrats->type_contrat_id == 2 && $contrats->contrat_id ==12 ) {
+
+            return view('pages.contrat_jardinier_cdi', compact('employer', 'formations', 'statut', 'grille', 'avancements', 'grilles', 'affectation', 'composante', 'employers', 'contrat'));
+        }
+        elseif ($contrats->type_contrat_id == 2 && $contrats->contrat_id ==13 ) {
+
+            return view('pages.contrat_chauffeur_cdi', compact('employer', 'formations', 'statut', 'grille', 'avancements', 'grilles', 'affectation', 'composante', 'employers', 'contrat'));
         }
     }
 }

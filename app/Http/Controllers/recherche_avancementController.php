@@ -31,7 +31,12 @@ class recherche_avancementController extends Controller
         ->join('roles', 'role_user.role_id', '=', 'roles.id')
         ->select('role_user.*','roles.*')
         ->where("role_user.user_id",Auth::user()->id)->first();
-        $annees=annees::all();
+        // $annees=annees::all();
+        $annees=DB::table("classes_corps_echelons_indices_periodes")
+        ->join('annees','classes_corps_echelons_indices_periodes.periodes_id','=','annees.id')
+        ->select('classes_corps_echelons_indices_periodes.periodes_id as periodes_id','annees.annee as annee','annees.id as id_annee')
+        ->distinct()
+        ->get();
         $employer=employer::where('matricule','like','%'.$request->search.'%')->first();
 
         return view('pages.avancement',compact('annees','employer','role'));

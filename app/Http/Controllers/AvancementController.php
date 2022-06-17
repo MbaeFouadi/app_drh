@@ -21,7 +21,12 @@ class AvancementController extends Controller
     {
         //
         $employer=employer::where('user_id',Auth::user()->id)->orderBydesc('id')->first();
-        $annees=annees::all();
+        // $annees=annees::all();
+        $annees=DB::table("classes_corps_echelons_indices_periodes")
+        ->join('annees','classes_corps_echelons_indices_periodes.periodes_id','=','annees.id')
+        ->select('classes_corps_echelons_indices_periodes.periodes_id as periodes_id','annees.annee as annee','annees.id as id_annee')
+        ->distinct()
+        ->get();
         $role = DB::table('role_user')
         ->join('roles', 'role_user.role_id', '=', 'roles.id')
         ->select('role_user.*','roles.*')
