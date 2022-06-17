@@ -87,7 +87,7 @@ class composantesController extends Controller
     {
         $request->validate([
             'nom_composante' => 'required|max:255|min:3',
-            'code_composante' => 'required|min:2|max:4',
+            'code_composante' => 'required|min:2|max:10',
             'id' => 'required',
         ]);
         $id=$request->id;
