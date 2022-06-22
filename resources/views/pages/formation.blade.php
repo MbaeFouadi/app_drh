@@ -67,7 +67,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                       <label for="exampleInputEmail1">Diplôme</label>
-                      <input type="text"  name="diplome" class="form-control  @error('diplome') is-invalid @enderror" id="exampleInputEmail1" placeholder="diplome">
+                      <input type="text"  name="diplome" class="form-control  @error('diplome') is-invalid @enderror" id="exampleInputEmail1" placeholder="diplome" required>
                     </div>
 
                     <div class="form-group">
@@ -75,7 +75,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                       <label for="exampleInputPassword1">Lieu</label>
-                      <input type="text" name="lieu" class="form-control  @error('lieu') is-invalid @enderror" id="exampleInputPassword1" placeholder="Lieu">
+                      <input type="text" name="lieu" class="form-control  @error('lieu') is-invalid @enderror" id="exampleInputPassword1" placeholder="Lieu" required>
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -85,14 +85,14 @@
                         @enderror
                       <label for="exampleInputEmail1">Année</label>
 
-                      <input type="text" name="annee" class="form-control  @error('annee') is-invalid @enderror" id="exampleInputEmail1" placeholder="Année">
+                      <input type="text" name="annee" class="form-control  @error('annee') is-invalid @enderror" id="exampleInputEmail1" placeholder="Année" required>
                     </div>
                     <div class="form-group">
                       @error('genre')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                       <label for="exampleInputPassword1">Filière</label>
-                      <input type="text" name="genre" class="form-control  @error('genre') is-invalid @enderror" id="exampleInputPassword1" placeholder="Genre">
+                      <input type="text" name="genre" class="form-control  @error('genre') is-invalid @enderror" id="exampleInputPassword1" placeholder="Genre" required>
                     </div>
                   </div>
                   <div class="form-group">

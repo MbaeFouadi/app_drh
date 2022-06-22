@@ -67,7 +67,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <label for="exampleInputEmail1">Année</label>
-                          <select class="form-control" name="annees" id="annees">
+                          <select class="form-control" name="annees" id="annees" required>
                           <option>Annee</option>
                             @foreach ($annees as $annee)
                             <option value="{{$annee->id_annee}}">{{ $annee->annee }}</option>
@@ -85,14 +85,14 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <label for="exampleInputEmail1">Date avancement</label>
-                        <input type="date" name="date_avan" class="form-control" id="exampleInputEmail1" placeholder="date recrutement">
+                        <input type="date" name="date_avan" class="form-control" id="exampleInputEmail1" placeholder="date recrutement" required>
                       </div>
                       <div class="form-group">
                         @error('corps')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <label for="exampleInputPassword1">Corps</label>
-                        <select class="form-control" name="corps" id="corps">
+                        <select class="form-control" name="corps" id="corps" required>
                           <option>Corps</option>
                         </select>
                       </div>
@@ -103,14 +103,14 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <label for="exampleInputEmail1">Date décision</label>
-                        <input type="date" name="date_dec" class="form-control" id="exampleInputEmail1" placeholder="date decision">
+                        <input type="date" name="date_dec" class="form-control" id="exampleInputEmail1" placeholder="date decision" required>
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail1">Classes</label>
                           @error('corps')
                           <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
-                          <select class="form-control" name="classes" id="classes">
+                          <select class="form-control" name="classes" id="classes" required>
                           <option>Classes</option>
                           </select>
                       </div>
@@ -123,7 +123,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <label for="exampleInputEmail1">Echelons</label>
-                        <select class="form-control" name="echelons" id="echelons">
+                        <select class="form-control" name="echelons" id="echelons" required>
                           <option>Echelons</option>
                         </select>
                       </div>
@@ -135,7 +135,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <label for="exampleInputEmail1">Indices</label>
-                        <select class="form-control" name="indices" id="indices">
+                        <select class="form-control" name="indices" id="indices" required>
                           <option>Indices</option>
                         </select>
                       </div>
