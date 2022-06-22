@@ -218,13 +218,13 @@
              
               <div class="form-group">
                 <label for="fct">Nom Fonction</label>
-                <input type="text" class="form-control" id="fct" name="nom_fonction" placeholder="Fonction">
+                <input type="text" class="form-control" id="fct" name="nom_fonction" placeholder="Fonction" required>
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail1">Service</label>
-                <select class="form-control" name="service_fonction" id="serviceModal">
+                <select class="form-control" name="service_fonction" id="serviceModal" required>
                   @foreach($services as $service)
-                  <option value="{{ $service->id}}">{{ $service->nom }} </option>
+                  <option value="{{ $service->id}}">{{ $service->nom }} ($service->composante) </option>
                   @endforeach
                 </select>
               </div>

@@ -94,7 +94,7 @@ class ficheController extends Controller
 
 
         $employer = DB::table('employers')
-        ->where("employers.id",'like','%'.$id.'%')->first();
+        ->where("employers.id",$id)->first();
 
         $employers = DB::table('employers')
         ->join('positions','employers.position_id','=','positions.id')

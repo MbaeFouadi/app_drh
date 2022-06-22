@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,6 +15,7 @@
   <link rel="stylesheet" href="{{ asset('styles.css') }}">
 
 </head>
+
 <body>
   <div class="container">
     <div class="row bloc1">
@@ -28,12 +30,14 @@
     </div>
     <div class="grand-bloc">
       <div class="row">
-        <div class="col-md-9" ><span  style="border-right:1px solid black;padding-left:12px;padding-right:12px;border-top:1px solid black;"><b>Etat Civil</b></span></div>
-        <div class="col-md-3 da"  style="border-left:1px solid black;padding-left:12px;padding-right:12px;"><span>Date d'édition:01/01/2010</span></div>
+        <div class="col-md-9"><span style="border-right:1px solid black;padding-left:12px;padding-right:12px;border-top:1px solid black;"><b>Etat Civil</b></span></div>
+        <div class="col-md-3 da" style="border-left:1px solid black;padding-left:12px;padding-right:12px;"><span>Date d'édition:01/01/2010</span></div>
       </div>
       <div class="etat">
         <div class="row">
-          <div class="col-md-6"><h3>{{$employer->nom }} {{$employer->prenom }}</h3></div>
+          <div class="col-md-6">
+            <h3>{{$employer->nom }} {{$employer->prenom }}</h3>
+          </div>
           <div class="col-md-6"> {{$employer->matricule }}</div>
         </div>
         <div class="row">
@@ -52,14 +56,14 @@
           <div class="col-2">Sexe :{{$employer->sexe}}</div>
           <div class="col-10"> {{$employer->statut }} {{$employer->nombre_enfant }} Enfant dont {{$employer->nombre_charge }} charge Né(e) en {{$employer->naissance }}</div>
         </div>
-      @if($formations->count()>0)
+        @if($formations->count()>0)
       </div><br><br>
-    <span style="border-right:1px solid black;padding-left:12px;padding-right:12px;border-top:1px solid black;"><b>Formation Académique</b></span>
+      <span style="border-right:1px solid black;padding-left:12px;padding-right:12px;border-top:1px solid black;"><b>Formation Académique</b></span>
       <div class="formation">
         <div class="row">
           @foreach ($formations as $formation)
-            <div class="col-md-6">{{$formation->annee }} {{$formation->diplome }} </div>
-            <div class="col-md-6"> {{$formation->lieu }} {{$formation->genre }} </div>
+          <div class="col-md-6">{{$formation->annee }} {{$formation->diplome }} </div>
+          <div class="col-md-6"> {{$formation->lieu }} {{$formation->genre }} </div>
           @endforeach
 
         </div><br><br><br><br><br><br><br><br>
@@ -69,29 +73,34 @@
           <div class="col-md-6">Ingenieur </div>
           <div class="col-md-6"> Moroni</div>
         </div><br><br><br><br><br><br><br><br> --}}
-      <span style="border-right:1px solid black;padding-left:12px;padding-right:12px;border-top:1px solid black;"><b>Statut initial</b></span>
+        @isset($statut)
+
+        <span style="border-right:1px solid black;padding-left:12px;padding-right:12px;border-top:1px solid black;"><b>Statut initial</b></span>
 
       </div>
       <div class="statut">
         <div class="">Recruté le {{$statut->date_re }} par note {{$statut->note}} du decision {{ $statut->date_dec}}</div>
-        <div>Corps:{{$grille->corp }}  Classe:{{$grille->classe }} Echelon:{{$grille->echelon }}</div>
+        <div>Corps:{{$grille->corp }} Classe:{{$grille->classe }} Echelon:{{$grille->echelon }}</div>
         <div>indice:{{$grille->indice}}</div>
         <div> Ministere d'origine: {{$statut->ministere}}</div><br>
+        @endisset
+
         @if($avancements->count()>0)
         <span style="border-right:1px solid black;padding-left:12px;padding-right:12px;border-top:1px solid black;"><b>Statut Actuel</b></span><span style="margin-left:10px">Iatos</span>
 
       </div>
-     
+
       <div class="avancement">
         @foreach ($avancements as $avancement)
         <div class="">Avancé le {{$avancement->date_avan }} par décision {{$avancement->note}} du {{$avancement->date_dec}}</div>
-        <div>Corps: {{$grilles->corp}} {{$grilles->classe }} Class   Echelon:{{$grilles->echelon}}</div>
+        <div>Corps: {{$grilles->corp}} {{$grilles->classe }} Class Echelon:{{$grilles->echelon}}</div>
         <div>indice:{{$grilles->indice}}</div><br><br>
         @endforeach
         @endif
-      
 
-    <span style="border-right:1px solid black;padding-left:12px;padding-right:12px;border-top:1px solid black;"><b>Affectation</b></span><span style="margin-left:10px">Université des Comores</span>
+        @isset($composante)
+        <span style="border-right:1px solid black;padding-left:12px;padding-right:12px;border-top:1px solid black;"><b>Affectation</b></span><span style="margin-left:10px">Université des Comores</span>
+
 
       </div>
       <div class="affectation">
@@ -106,13 +115,18 @@
 
 
             <br><br><br>
-             <div>Reglement par virement bancaire sur le compte SNPSF N°:{{$employer->compte_bancaire}}</div>
+            @endisset
+
+            <div>Reglement par virement bancaire sur le compte SNPSF N°:{{$employer->compte_bancaire}}</div>
           </div>
+
           <div class="col-md-3 aff">
             <div class="signature">Cachet & Cachet du DRH</div>
             <div class="tex">
-              <p class="text-center">Hassani Hamada<p>
-              <p class="text-center">Certifiée et Conforme<p>
+              <p class="text-center">Hassani Hamada
+              <p>
+              <p class="text-center">Certifiée et Conforme
+              <p>
             </div>
 
           </div>
@@ -131,25 +145,26 @@
     <div class="row">
       <div class="col-md-6"><a class="btn btn-primary" href="{{route('accueil') }}">Quittez</a></div>
       <div class="col-md-6"><button class="btn btn-primary">Imprimer</button></div>
-  
+
     </div>
   </div>
-  
-<!-- jQuery -->
-<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- bs-custom-file-input -->
-<script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('dist/js/demo.js') }}"></script>
-<!-- Page specific script -->
-<script>
-$(function () {
-  bsCustomFileInput.init();
-});
-</script>
+
+  <!-- jQuery -->
+  <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+  <!-- Bootstrap 4 -->
+  <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <!-- bs-custom-file-input -->
+  <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+  <!-- AdminLTE App -->
+  <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="{{ asset('dist/js/demo.js') }}"></script>
+  <!-- Page specific script -->
+  <script>
+    $(function() {
+      bsCustomFileInput.init();
+    });
+  </script>
 </body>
+
 </html>

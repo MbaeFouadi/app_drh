@@ -95,7 +95,12 @@ class fonctionController extends Controller
                 ->where("role_user.user_id", Auth::user()->id)->first();
             $fonctions = fonction::all();
             $composantes = composante::all();
-            $services = service::all();
+            // $services = service::all();
+            $services = DB::table('services')
+            ->join('composantes', 'services.composante_id', '=', 'composantes.id')
+            ->select('services.id', 'services.nom', 'services.code_des', 'services.composante_id', 'composantes.code_des as composante')
+            // ->select('services.id','services.nom','services.code_des','services.composante_id')
+            ->get();
             $categories = categorie::all();
             $annees = annees::all();
             fonction::create(['nom' => $request->fonction, 'nombre' => $request->nombre, 'service_id' => $request->service, 'category_id' => $request->categorie, 'annee_id' => $request->annee]);

@@ -72,7 +72,7 @@
                           <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
                           <label for="exampleInputEmail1">Composantes</label>
-                          <select class="form-control" name="composantes" id="composantes">
+                          <select class="form-control" name="composantes" id="composantes" required>
                             <option>Composantes</option>
                             @foreach ($composantes as $composante)
                             <option value="{{$composante->id}}">{{ $composante->nom}}</option>
@@ -84,7 +84,7 @@
                           <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
                           <label for="exampleInputEmail1">Fonctions</label>
-                          <select class="form-control" name="fonctions" id="fonctions">
+                          <select class="form-control" name="fonctions" id="fonctions" required>
                             <option>Fonctions</option>
                           </select>
                         </div>
@@ -95,7 +95,7 @@
                           <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
                           <label for="exampleInputEmail1">Services</label>
-                          <select class="form-control" name="services" id="services">
+                          <select class="form-control" name="services" id="services" required>
                             <option>Services</option>
                           </select>
                         </div>
@@ -105,7 +105,7 @@
                           <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
                           <label for="exampleInputPassword1">Années</label>
-                          <select class="form-control" name="annees" id="annees">
+                          <select class="form-control" name="annees" id="annees" required>
 
                             <option value="">Années</option>
 
@@ -129,7 +129,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <label for="exampleInputPassword1">Poste de Travail</label>
-                        <input type="text" name="numero_post" class="form-control" id="exampleInputPassword1" placeholder="Post de travail">
+                        <input type="text" name="numero_post" class="form-control" id="exampleInputPassword1" placeholder="Post de travail" required>
                       </div>
                         
 
