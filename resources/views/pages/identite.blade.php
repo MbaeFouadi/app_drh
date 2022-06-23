@@ -64,14 +64,14 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-6">
-                      <div class="form-group">
-                        @error('nin')
-                            <div class="alert alert-danger">{{ $message }}
+                        <div class="form-group">
+                          @error('nin')
+                          <div class="alert alert-danger">{{ $message }}
                           </div>
                           @enderror
-                        <label for="exampleInputEmail1">Nin <span style="color:red">*</span></label>
-                        <input type="text" class="form-control @error('nin') is-invalid @enderror " id="exampleInputEmail1" placeholder="Nin" name="nin">
-                      </div>
+                          <label for="exampleInputEmail1">Nin <span style="color:red">*</span></label>
+                          <input type="text" class="form-control @error('nin') is-invalid @enderror " id="exampleInputEmail1" placeholder="Nin" name="nin" value="{{old('nin')}}">
+                        </div>
                       </div>
                     </div>
                     <div class="row">
@@ -119,14 +119,14 @@
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
         <label for="exampleInputEmail1">Nom <span style="color:red">*</span></label>
-        <input type="text" class="form-control @error('nom') is-invalid @enderror " id="exampleInputEmail1" placeholder="Nom" name="nom">
+        <input type="text" class="form-control @error('nom') is-invalid @enderror " id="exampleInputEmail1" placeholder="Nom" name="nom" value="{{old('nom')}}">
       </div>
       <div class="form-group">
         @error('date_naissance')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
         <label for="exampleInputPassword1">Date naissance <span style="color:red">*</span></label>
-        <input type="date" name="date_naissance" class="form-control @error('date_naissance') is-invalid @enderror" id="exampleInputPassword1" placeholder="Date naissance">
+        <input type="date" name="date_naissance" class="form-control @error('date_naissance') is-invalid @enderror" id="exampleInputPassword1" placeholder="Date naissance" value="{{old('date_naissance')}}">
       </div>
     </div>
     <div class="col-md-6">
@@ -135,14 +135,14 @@
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
         <label for="exampleInputEmail1">Prénom <span style="color:red">*</span></label>
-        <input type="text" name="prenom" class="form-control @error('prenom') is-invalid @enderror" id="exampleInputEmail1" placeholder="Prenom">
+        <input type="text" name="prenom" class="form-control @error('prenom') is-invalid @enderror" id="exampleInputEmail1" placeholder="Prenom" value="{{old('prenom')}}">
       </div>
       <div class="form-group">
         @error('lieu_naissance')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
         <label for="exampleInputPassword1">Lieu naissance <span style="color:red">*</span></label>
-        <input type="text" name="lieu_naissance" class="form-control @error('lieu_naissance') is-invalid @enderror" id="exampleInputPassword1" placeholder="Lieu naissance">
+        <input type="text" name="lieu_naissance" class="form-control @error('lieu_naissance') is-invalid @enderror" id="exampleInputPassword1" placeholder="Lieu naissance" value="{{old('lieu_naissance')}}">
       </div>
     </div>
   </div>
@@ -153,14 +153,14 @@
         @error('adresse')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
-        <input type="text" name="adresse" class="form-control @error('adresse') is-invalid @enderror" id="exampleInputEmail1" placeholder="Adresse">
+        <input type="text" value="{{old('adresse')}}" name="adresse" class="form-control @error('adresse') is-invalid @enderror" id="exampleInputEmail1" placeholder="Adresse">
       </div>
       <div class="form-group">
         @error('telephone')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
         <label for="exampleInputPassword1">Téléphone <span style="color:red">*</span></label>
-        <input type="text" name="telephone" class="form-control @error('telephone') is-invalid @enderror" id="exampleInputPassword1" placeholder="Telephone">
+        <input type="text" value="{{old('telephone')}}" name="telephone" class="form-control @error('telephone') is-invalid @enderror" id="exampleInputPassword1" placeholder="Telephone">
       </div>
     </div>
     <div class="col-md-6">
@@ -170,8 +170,9 @@
         @enderror
         <label for="exampleInputEmail1">Sexe <span style="color:red">*</span></label>
         <select class="form-control @error('sexe') is-invalid @enderror" name="sexe">
-          <option value="M">M</option>
-          <option value="F">F</option>
+          <option value="">Sexe</option>
+          <option value="M" @if (old('sexe')=="M" ) {{ 'selected' }} @endif>M</option>
+          <option value="F" @if (old('sexe')=="F" ) {{ 'selected' }} @endif>F</option>
 
         </select>
       </div>
@@ -179,8 +180,8 @@
         @error('email')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
-        <label for="exampleInputPassword1">Email <span style="color:red">*</span></label>
-        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="exampleInputPassword1" placeholder="Email">
+        <label for="exampleInputPassword1">Email <span style="color:red"></span></label>
+        <input type="email" value="{{old('email')}}" name="email" class="form-control " id="exampleInputPassword1" placeholder="Email">
         {{-- <input type="password" name="password" class="form-control" id="xampleInputPassword1" value="password" hidden> --}}
 
       </div>
@@ -196,9 +197,10 @@
         @enderror
         <label for="exampleInputEmail1">Statut <span style="color:red">*</span></label>
         <select class="form-control @error('statut') is-invalid @enderror" name="statut">
-          <option value="Célibataire">Célibataire</option>
-          <option value="Fiancé">Fiancé</option>
-          <option value="Marié">Marié</option>
+          <option value="">Statut</option>
+          <option value="Célibataire" @if (old('statut')=="Célibataire" ) {{ 'selected' }} @endif>Célibataire</option>
+          <option value="Fiancé" @if (old('statut')=="Fiancé" ) {{ 'selected' }} @endif>Fiancé</option>
+          <option value="Marié" @if (old('statut')=="Marié" ) {{ 'selected' }} @endif>Marié</option>
         </select>
       </div>
       <div class="form-group">
@@ -206,7 +208,7 @@
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
         <label for="exampleInputPassword1">Nombre de charge</label>
-        <input type="number" name="nombre_charge" class="form-control @error('nombre_charge') is-invalid @enderror" id="exampleInputPassword1" placeholder="Nombre de charge">
+        <input type="number" value="{{old('nombre_charge')}}" name="nombre_charge" class="form-control @error('nombre_charge') is-invalid @enderror" id="exampleInputPassword1" placeholder="Nombre de charge">
       </div>
     </div>
     <div class="col-md-6">
@@ -215,14 +217,14 @@
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
         <label for="exampleInputPassword1">Nombre d'enfant</label>
-        <input type="number" name="nombre_enfant" class="form-control @error('nombre_enfant') is-invalid @enderror" id="exampleInputPassword1" placeholder="Nombre d'enfant">
+        <input type="number" value="{{old('nombre_enfant')}}" name="nombre_enfant" class="form-control @error('nombre_enfant') is-invalid @enderror" id="exampleInputPassword1" placeholder="Nombre d'enfant">
       </div>
       <div class="form-group">
         @error('naissance')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
         <label for="exampleInputPassword1">Né(e) en </label>
-        <input type="text" name="naissance" class="form-control @error('naissance') is-invalid @enderror" id="exampleInputPassword1" placeholder="Né(e) en">
+        <input type="text" value="{{old('naissance')}}" name="naissance" class="form-control @error('naissance') is-invalid @enderror" id="exampleInputPassword1" placeholder="Né(e) en">
       </div>
     </div>
   </div>
@@ -234,19 +236,24 @@
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
         <label for="exampleInputPassword1">Compte Bancaire <span style="color:red">*</span></label>
-        <input type="text" name="compte_bancaire" class="form-control @error('compte_bancaire') is-invalid @enderror" id="exampleInputPassword1" placeholder="Compte Bancaire">
+        <input type="text" value="{{old('compte_bancaire')}}" name="compte_bancaire" class="form-control @error('compte_bancaire') is-invalid @enderror" id="exampleInputPassword1" placeholder="Compte Bancaire">
       </div>
     </div>
 
     <div class="col-md-6">
       <div class="form-group">
-        @error('Annee')
+        @error('annee')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
         <label for="exampleInputEmail1">Année recrutement <span style="color:red">*</span></label>
         <select class="form-control @error('annee') is-invalid @enderror" name="annee">
+          <option value="">Année</option>
           @foreach($annees as $anne)
+          @if (old('annee')==$anne->annee)
+          <option value="{{$anne->annee}}" selected>{{$anne->annee}}</option>
+          @else
           <option value="{{$anne->annee}}">{{$anne->annee}}</option>
+          @endif
           @endforeach
         </select>
       </div>
@@ -264,8 +271,15 @@
         @enderror
         <label for="exampleInputEmail1">position <span style="color:red">*</span></label>
         <select class="form-control @error('position_id') is-invalid @enderror" name="position_id">
+          <option value="">position</option>
           @foreach($positions as $position)
+          @if (old('position_id')==$position->id)
+          <option value="{{$position->id}}" selected>{{$position->position}}</option>
+
+          @else
           <option value="{{$position->id}}">{{$position->position}}</option>
+
+          @endif
           @endforeach
         </select>
       </div>
@@ -278,8 +292,15 @@
         @enderror
         <label for="exampleInputEmail1">Type de Contrat <span style="color:red">*</span></label>
         <select class="form-control @error('type_contrat_id') is-invalid @enderror" name="type_contrat_id">
+          <option value="">Type contrat</option>
           @foreach($contrats as $contrat)
+          @if (old('type_contrat_id')==$contrat->id)
+          <option value="{{$contrat->id}}" selected>{{$contrat->code_design_contrat}}</option>
+            
+          @else
           <option value="{{$contrat->id}}">{{$contrat->code_design_contrat}}</option>
+            
+          @endif
           @endforeach
         </select>
       </div>

@@ -68,7 +68,7 @@
                         @enderror
                         <label for="exampleInputEmail1">Année</label>
                           <select class="form-control" name="annees" id="annees" required>
-                          <option>Annee</option>
+                          <option value="">Annee</option>
                             @foreach ($annees as $annee)
                             <option value="{{$annee->id_annee}}">{{ $annee->annee }}</option>
                             @endforeach
@@ -93,7 +93,7 @@
                         @enderror
                         <label for="exampleInputPassword1">Corps</label>
                         <select class="form-control" name="corps" id="corps" required>
-                          <option>Corps</option>
+                          <option value="">Corps</option>
                         </select>
                       </div>
                     </div>
@@ -107,11 +107,11 @@
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail1">Classes</label>
-                          @error('corps')
+                          @error('classes')
                           <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
                           <select class="form-control" name="classes" id="classes" required>
-                          <option>Classes</option>
+                          <option value="">Classes</option>
                           </select>
                       </div>
                     </div>
@@ -124,7 +124,7 @@
                         @enderror
                         <label for="exampleInputEmail1">Echelons</label>
                         <select class="form-control" name="echelons" id="echelons" required>
-                          <option>Echelons</option>
+                          <option value="">Echelons</option>
                         </select>
                       </div>
 
@@ -136,7 +136,7 @@
                         @enderror
                         <label for="exampleInputEmail1">Indices</label>
                         <select class="form-control" name="indices" id="indices" required>
-                          <option>Indices</option>
+                          <option value="">Indices</option>
                         </select>
                       </div>
 
@@ -149,7 +149,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <label for="exampleInputPassword1">Note</label>
-                        <input type="text" name="note"class="form-control" id="exampleInputPassword1" placeholder="note">
+                        <input type="text" name="note"class="form-control" id="exampleInputPassword1" placeholder="note" required>
                       </div>
                         <div class="form-group">
                           <input type="hidden" name="employer_id" class="form-control" id="exampleInputPassword1" value="{{ $employer->id }}">

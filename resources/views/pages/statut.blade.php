@@ -70,10 +70,16 @@
                           <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
                           <label for="exampleInputEmail1">Année</label>
-                            <select class="form-control" name="annees" id="annees" required>
-                              <option>Année</option>
+                            <select class="form-control @error('annees') is-invalid @enderror" name="annees" id="annees" >
+                              <option value="">Année</option>
                               @foreach ($annees as $annee)
+                              @if (old('annees')==$annee->id_annee)
+                              <option value="{{$annee->id_annee}}" selected>{{ $annee->annee }}</option>
+                                
+                              @else
                               <option value="{{$annee->id_annee}}">{{ $annee->annee }}</option>
+                                
+                              @endif
                               @endforeach
                             </select>
                         </div>
@@ -88,15 +94,15 @@
                           <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
                           <label for="exampleInputEmail1">Date recrutement</label>
-                          <input type="date" name="date_re" class="form-control" id="exampleInputEmail1" placeholder="date recrutement" required>
+                          <input type="date" name="date_re" value="{{old('date_re')}}" class="form-control @error('date_re') is-invalid @enderror" id="exampleInputEmail1" placeholder="date recrutement" required>
                         </div>
                         <div class="form-group">
                           <label for="exampleInputPassword1">Corps</label>
                             @error('corps')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
-                            <select class="form-control" name="corps" id="corps" required>
-                              <option>Corps</option>
+                            <select class="form-control @error('corps') is-invalid @enderror" name="corps" id="corps" required>
+                              <option value="">Corps</option>
                             </select>
                         </div>
                       </div>
@@ -106,15 +112,15 @@
                           <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
                           <label for="exampleInputEmail1">Date décision</label>
-                          <input type="date" name="date_dec" class="form-control" id="exampleInputEmail1" placeholder="date decision" required>
+                          <input type="date" name="date_dec" value="{{old('date_dec')}}" class="form-control @error('date_dec') is-invalid @enderror" id="exampleInputEmail1" placeholder="date decision" required>
                         </div>
                         <div class="form-group">
                           @error('classes')
                           <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
                           <label for="exampleInputEmail1">Classes</label>
-                          <select class="form-control"  name="classes" id="classes" required>
-                            <option>Classes</option>
+                          <select class="form-control @error('classes') is-invalid @enderror"  name="classes" id="classes" required>
+                            <option value="">Classes</option>
                           </select>
                         </div>
 
@@ -127,8 +133,8 @@
                           <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
                           <label for="exampleInputEmail1">Echelons</label>
-                            <select class="form-control" name="echelons" id="echelons" required>
-                              <option>Echelons</option>
+                            <select class="form-control @error('echelons') is-invalid @enderror" name="echelons" id="echelons" required >
+                              <option value="">Echelons</option>
 
                             </select>
                         </div>
@@ -139,9 +145,9 @@
                           @error('indices')
                           <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
-                          <label for="exampleInputEmail1">Indices</label>
-                          <select class="form-control" name="indices" id="indices" required>
-                            <option>Indices</option>
+                          <label for="exampleInputEmail1 ">Indices</label>
+                          <select class="form-control @error('indices') is-invalid @enderror" name="indices" id="indices" required>
+                            <option value="">Indices</option>
 
                           </select>
                         </div>
@@ -154,7 +160,7 @@
                           <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
                           <label for="exampleInputPassword1">Note</label>
-                          <input type="text" name="note" class="form-control" id="exampleInputPassword1" placeholder="note" required>
+                          <input type="text" name="note" value="{{old('note')}}" class="form-control @error('note') is-invalid @enderror" id="exampleInputPassword1" placeholder="note" required>
                         </div>
 
                       </div>
@@ -165,7 +171,7 @@
                           <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
                           <label for="exampleInputEmail1">Entreprise Origine</label>
-                          <input type="text" name="ministere" class="form-control" id="exampleInputEmail1" placeholder="Entreprise Origine" required>
+                          <input type="text" name="ministere" value="{{old('ministere')}}" class="form-control @error('ministere') is-invalid @enderror" id="exampleInputEmail1" placeholder="Entreprise Origine" required>
                         </div>
                       </div>
 

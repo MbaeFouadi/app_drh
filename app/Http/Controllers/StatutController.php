@@ -44,6 +44,7 @@ class StatutController extends Controller
 
         $request->validate([
             'date_re'=>'required',
+            'annees'=>'required',
             'date_dec'=>'required',
             'note'=>'required',
             'corps'=>'required',

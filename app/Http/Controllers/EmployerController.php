@@ -67,11 +67,12 @@ class EmployerController extends Controller
             'lieu_naissance' => 'required',
             'adresse' => 'required',
             'telephone' => 'required',
-            'email' => 'required',
+           
             'sexe' => 'required',
             'statut' => 'required',
             'compte_bancaire' => 'required',
             'position_id' => 'required',
+            'annee' => 'required',
             'type_contrat_id' => 'required'
         ]);
 
