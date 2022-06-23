@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\avancement_employer;
 use Illuminate\Support\Facades\Auth;
+use MercurySeries\Flashy\Flashy;
+
 
 class AvancementController extends Controller
 {
@@ -86,6 +88,11 @@ class AvancementController extends Controller
             'avancement_id'=>$avancement->id,
             'user_id'=>Auth::user()->id
             ]);
+
+        session()->flash("message","avancement créer avec succès");
+        Flashy::message('Avancement créer avec succès');
+        
+            
 
     return redirect(route('avancement.index'));
 

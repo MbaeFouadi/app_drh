@@ -9,6 +9,8 @@ use App\Models\formation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use MercurySeries\Flashy\Flashy;
+
 
 class StatutController extends Controller
 {
@@ -80,6 +82,9 @@ class StatutController extends Controller
         ->where('id',$employers->id)
         ->update(['statut_id' => $statut->id]);
 
+
+        session()->flash("message","Statut initial créer avec succès");
+        Flashy::message('Statut initial créer avec succès');
 
 
 

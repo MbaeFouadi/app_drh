@@ -59,7 +59,12 @@
               <div class="card card-info">
                 <div class="card-header">
                   <h3 class="card-title">Affectation</h3>
+                </div> <br>
+                <!-- @if (session()->has('message'))
+                <div class="alert alert-success">
+                  {{session()->get('message')}}
                 </div>
+              @endif -->
                 <!-- /.card-header -->
                 <!-- form start -->
                 <form action="{{route('affectation.store')}}" method="POST">
@@ -212,6 +217,9 @@
     <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
+
+<script src="//code.jquery.com/jquery.js"></script>
+@include('flashy::message')
 
   <!-- jQuery -->
   <!-- Bootstrap 4 -->

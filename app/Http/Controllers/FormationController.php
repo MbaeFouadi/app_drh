@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\employer_formation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use MercurySeries\Flashy\Flashy;
+
 
 class FormationController extends Controller
 {
@@ -68,6 +70,9 @@ class FormationController extends Controller
             'user_id'=>Auth::user()->id
 
         ]);
+
+        session()->flash("message","formation créer avec succès");
+        Flashy::message('formation créer avec succès');
 
         return redirect(route('formation.index'));
 

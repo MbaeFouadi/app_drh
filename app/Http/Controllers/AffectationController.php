@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\affecation_employer;
 use Illuminate\Support\Facades\Auth;
+use MercurySeries\Flashy\Flashy;
 
 class AffectationController extends Controller
 {
@@ -83,6 +84,9 @@ class AffectationController extends Controller
                 ->join('roles', 'role_user.role_id', '=', 'roles.id')
                 ->select('role_user.*', 'roles.*')
                 ->where("role_user.user_id", Auth::user()->id)->first();
+            session()->flash("message","affectation créer avec succès");
+        Flashy::message('Affectation créer avec succès');
+
             return redirect(route('affectation.index', compact('role')));
         } else {
             $erreur = "Vous avez atteint le nombre maximale de ce poste";
@@ -93,6 +97,8 @@ class AffectationController extends Controller
                 ->join('roles', 'role_user.role_id', '=', 'roles.id')
                 ->select('role_user.*', 'roles.*')
                 ->where("role_user.user_id", Auth::user()->id)->first();
+
+
             return view('pages.affectation', compact('composantes', 'employer', 'annees', 'erreur', 'role'));
         }
     }

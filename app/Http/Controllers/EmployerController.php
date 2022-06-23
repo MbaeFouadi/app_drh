@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use MercurySeries\Flashy\Flashy;
 
 class EmployerController extends Controller
 {
@@ -107,15 +108,8 @@ class EmployerController extends Controller
             'user_id' => Auth::user()->id
         ]);
 
-
-
-        //$max_id = DB::table('employers')->max('id');
-
-        // Profil::create([
-        //     'matricule' =>$request->matricule,
-        //     'password' => "password",
-        //     'employe_id' => $max_id,
-        // ]);
+        session()->flash("message","identité créer avec succès");
+        Flashy::message('identité créer avec succès');
 
         return redirect(route('formation.index'));
     }
