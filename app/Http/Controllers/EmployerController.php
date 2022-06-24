@@ -61,7 +61,7 @@ class EmployerController extends Controller
         //
 
         $request->validate([
-            'nin' => 'required', 'unique',
+            'nin' => 'required|unique:employers,nin',
             'nom' => 'required',
             'prenom' => 'required',
             'date_naissance' => 'required',
@@ -71,7 +71,7 @@ class EmployerController extends Controller
            
             'sexe' => 'required',
             'statut' => 'required',
-            'compte_bancaire' => 'required',
+            'compte_bancaire' => 'required|unique:employers,compte_bancaire',
             'position_id' => 'required',
             'annee' => 'required',
             'type_contrat_id' => 'required'
@@ -83,7 +83,19 @@ class EmployerController extends Controller
         } else {
             $nbre = 1;
         }
-        $mat =  $nbre."-"."U" . "/" . substr($request->annee, 2);
+        if($nbre < 10)
+        {
+            $mat =  "00".$nbre."-"."U" . "/" . substr($request->annee, 2);
+        }
+        elseif($nbre < 100)
+        {
+            $mat =  "0".$nbre."-"."U" . "/" . substr($request->annee, 2);
+        }
+        else
+        {
+            $mat =  $nbre."-"."U" . "/" . substr($request->annee, 2);
+
+        }
         employer::create([
             'matricule' => $mat,
             'nin' => $request->nin,

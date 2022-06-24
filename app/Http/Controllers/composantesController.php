@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\composante;
 use Illuminate\Http\Request;
-use MercurySeries\Flashy\Flashy;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use MercurySeries\Flashy\Flashy;
+
 
 class composantesController extends Controller
 {
@@ -56,6 +57,8 @@ class composantesController extends Controller
             return 'Ce code design est utilisé';
         }else{*/
             composante::create(['nom'=>$request->nom,'code_des'=>$request->code]);
+
+            Flashy::message('Composante créer avec succès');
             //Flashy::message('Insertion reuissi avec succès');
             return redirect(route('composante.index'));
         //}

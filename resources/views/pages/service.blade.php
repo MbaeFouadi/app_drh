@@ -63,20 +63,35 @@
                   @isset($msg)
                     <div class="alert alert-danger">{{ $msg }}</div>
                   @endisset
+                  @error('nom')
+                  <div class="alert alert-danger">{{ $message }}</div>
+                  @enderror
                   <div class="form-group">
                     <label for="exampleInputEmail1">Nom service</label>
-                    <input type="text" class="form-control" name="nom" id="exampleInputEmail1" placeholder="Service">
+                    <input type="text" class="form-control" value="{{old('nom')}}" name="nom" id="exampleInputEmail1" placeholder="Service">
                   </div>
+                  @error('code')
+                  <div class="alert alert-danger">{{ $message }}</div>
+                  @enderror
                   <div class="form-group">
                     <label for="exampleInputPassword1">Code Design</label>
-                    <input type="text" class="form-control" name="code" id="exampleInputPassword1" placeholder="code">
+                    <input type="text" class="form-control"  value="{{old('code')}}" name="code" id="exampleInputPassword1" placeholder="code">
                   </div>
-
+                  @error('composante')
+                  <div class="alert alert-danger">{{ $message }}</div>
+                  @enderror
                   <div class="form-group">
                     <label for="exampleInputEmail1">Composantes</label>
-                    <select class="form-control" name="composante">
+                    <select class="form-control"  name="composante">
+                      <option value="">Composante</option>
                       @foreach ($composantes as $composante )
+                      @if (old('composante')==$composante->id)
+                      <option value="{{$composante->id }}" selected>{{$composante->nom}}</option>
+                        
+                      @else
                       <option value="{{$composante->id }}">{{$composante->nom}}</option>
+                        
+                      @endif
                       @endforeach
 
                     </select>
@@ -188,6 +203,8 @@
   </aside>
   <!-- /.control-sidebar -->
 </div>
+
+<!-- jQuery -->
 <!-- ./wrapper -->
 <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -253,7 +270,9 @@
     </div>
   </div>
 </div>
-<!-- jQuery -->
+
+<script src="//code.jquery.com/jquery.js"></script>
+@include('flashy::message')
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -65,14 +65,14 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <label for="exampleInputEmail1">Nom Composante</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="nom" placeholder="Composante">
+                    <input type="text" value="{{old('nom')}}" class="form-control" id="exampleInputEmail1" name="nom" placeholder="Composante">
                   </div>
                   <div class="form-group">
                     @error('code')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <label for="exampleInputPassword1">Code Design</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" name="code" placeholder="Code Design">
+                    <input type="text" class="form-control" value="{{old('code')}}" id="exampleInputPassword1" name="code" placeholder="Code Design">
                   </div>
 
 
@@ -161,7 +161,7 @@
                   <div class="alert alert-danger">{{ $message }}</div>
                   @enderror
                   <label for="comp">Nom Composante</label>
-                  <input type="text" class="form-control" id="comp" name="nom_composante" placeholder="Composante">
+                  <input type="text" class="form-control" id="comp"  name="nom_composante" placeholder="Composante">
                 </div>
                 <div class="form-group">
                   @error('code')
@@ -213,6 +213,10 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+
+<script src="//code.jquery.com/jquery.js"></script>
+@include('flashy::message')
+
 
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>

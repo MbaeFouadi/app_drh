@@ -6,6 +6,7 @@ use App\Models\annees;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use MercurySeries\Flashy\Flashy;
 
 class periodeController extends Controller
 {
@@ -52,7 +53,12 @@ class periodeController extends Controller
 
         $annee=annees::create(['annee'=>$request->annee]);
         $annees=annees::all();
-        return view('pages.Année',compact('annees'));
+        $role = DB::table('role_user')
+        ->join('roles', 'role_user.role_id', '=', 'roles.id')
+        ->select('role_user.*','roles.*')
+        ->where("role_user.user_id",Auth::user()->id)->first();
+        Flashy::message('Année créer avec succès');
+        return view('pages.Année',compact('annees','role'));
 
 
     }

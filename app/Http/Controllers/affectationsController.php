@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\classes_corps_echelons_indices_periode;
+use MercurySeries\Flashy\Flashy;
+
 
 class affectationsController extends Controller
 {
@@ -100,6 +102,7 @@ class affectationsController extends Controller
             // session()->flash('message','Evenement creer avec succes');
 
             // Flashy::message('Insertion reuissi avec succès');
+            Flashy::message('Affectation créer avec succès');
             return redirect(route('affectations.index'));
         }
 

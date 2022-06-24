@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\service;
 use App\Models\services;
 use App\Models\composante;
@@ -9,6 +8,8 @@ use App\Models\composantes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use MercurySeries\Flashy\Flashy;
+
 
 class serviceController extends Controller
 {
@@ -58,8 +59,8 @@ class serviceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nom' => 'required|max:255|min:3',
-            'code' => 'required|min:2|max:4',
+            'nom' => 'required|max:255|min:1',
+            'code' => 'required|min:1|max:255',
             'composante' => 'required',
         ]);
 
@@ -83,6 +84,7 @@ class serviceController extends Controller
             $services = service::all();
             $composantes = composante::all();
             service::create(['nom' => $request->nom, 'code_des' => $request->code, 'composante_id' => $request->composante]);
+            Flashy::message('Service créer avec succès');
             return  view('pages.service', compact('services', 'composantes','role'));
         }
     }

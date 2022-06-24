@@ -218,6 +218,7 @@ $nbr = DB::table('conges')->where('motif', 'Demande en cours de traitement')->wh
             </ul>
           </li>
       </li>
+      @if(Auth::user()->hasRole('superadministrateur'))
       <li class="nav-item">
         <a href="#" class="nav-link">
           <!-- <i class="nav-icon  fas fa-solid fa-person"></i> -->
@@ -248,6 +249,10 @@ $nbr = DB::table('conges')->where('motif', 'Demande en cours de traitement')->wh
           </li>
         </ul>
       </li>
+      @endif
+     
+
+      @if(Auth::user()->hasRole('superadministrateur'))
       <li class="nav-item">
         <a href="#" class="nav-link">
           <!-- <i class="nav-icon  fas fa-solid fa-person"></i> -->
@@ -322,7 +327,7 @@ $nbr = DB::table('conges')->where('motif', 'Demande en cours de traitement')->wh
                   <p class="text-light">Sécurité</p>
                 </a>
               </li>
-              
+
               <li class="nav-item">
                 <a href="{{ route('liste_contrat',9) }}" class="nav-link">
                   <!-- <i class="nav-icon fas fa-asterisk"></i> -->
@@ -396,7 +401,7 @@ $nbr = DB::table('conges')->where('motif', 'Demande en cours de traitement')->wh
                 </a>
               </li>
             </ul>
-            <li class="nav-item">
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-search"></i>
               <p class="text-light">
@@ -435,10 +440,13 @@ $nbr = DB::table('conges')->where('motif', 'Demande en cours de traitement')->wh
             </ul>
           </li>
       </li>
-        </ul>
-        
+    
+     
+
+      </ul>
+
       </li>
-      
+@endif
       </ul>
       </li>
       @if(Auth::user()->hasRole('superadministrateur'))

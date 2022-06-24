@@ -14,6 +14,8 @@ use App\Models\composantes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use MercurySeries\Flashy\Flashy;
+
 
 class fonctionController extends Controller
 {
@@ -104,6 +106,7 @@ class fonctionController extends Controller
             $categories = categorie::all();
             $annees = annees::all();
             fonction::create(['nom' => $request->fonction, 'nombre' => $request->nombre, 'service_id' => $request->service, 'category_id' => $request->categorie, 'annee_id' => $request->annee]);
+            Flashy::message('Fonction créer avec succès');
             return view('pages.fonction', compact('fonctions', 'composantes', 'services', 'categories', 'annees', 'role'));
         }
     }
