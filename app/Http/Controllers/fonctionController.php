@@ -106,7 +106,7 @@ class fonctionController extends Controller
             // ->select('services.id','services.nom','services.code_des','services.composante_id')
             ->get();
             $categories = categorie::all();
-            $annees = annees::all();
+            $annees =  periodes::all();
             fonction::create(['nom' => $request->fonction, 'nombre' => $request->nombre, 'service_id' => $request->service, 'category_id' => $request->categorie, 'annee_id' => $request->annee]);
             Flashy::message('Fonction créer avec succès');
             return view('pages.fonction', compact('fonctions', 'composantes', 'services', 'categories', 'annees', 'role'));
