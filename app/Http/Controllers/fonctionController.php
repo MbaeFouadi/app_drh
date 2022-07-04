@@ -11,6 +11,7 @@ use App\Models\fonctions;
 use App\Models\categories;
 use App\Models\composante;
 use App\Models\composantes;
+use App\Models\periodes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -39,10 +40,11 @@ class fonctionController extends Controller
         $services = DB::table('services')
             ->join('composantes', 'services.composante_id', '=', 'composantes.id')
             ->select('services.id', 'services.nom', 'services.code_des', 'services.composante_id', 'composantes.code_des as composante')
+            ->orderByRaw("services.nom")
             // ->select('services.id','services.nom','services.code_des','services.composante_id')
             ->get();
         $categories = categorie::all();
-        $annees = annees::all();
+        $annees = periodes::all();
         $role = DB::table('role_user')
             ->join('roles', 'role_user.role_id', '=', 'roles.id')
             ->select('role_user.*', 'roles.*')

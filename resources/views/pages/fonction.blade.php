@@ -81,9 +81,9 @@
                         <option value="">Service</option>
                         @foreach($services as $service)
                         @if (old('service')==$service->id)
-                        <option value="{{$service->id}}" selected>{{$service->nom}}</option>
+                        <option value="{{$service->id}}" selected>{{$service->nom}} ({{$service->composante}}) </option>
                         @else
-                        <option value="{{$service->id}}">{{$service->nom}}</option>
+                        <option value="{{$service->id}}">{{$service->nom}} ({{$service->composante}})</option>
                         @endif
 
                         @endforeach
@@ -122,9 +122,9 @@
                         <option value="">Année</option>
                         @foreach($annees as $annee)
                         @if (old('annee')==$annee->id)
-                        <option value="{{ $annee->id}}" selected>{{ $annee->annee }}</option>
+                        <option value="{{ $annee->id}}" selected>{{ $annee->periode }}</option>
                         @else
-                        <option value="{{ $annee->id}}">{{ $annee->annee }}</option>
+                        <option value="{{ $annee->id}}">{{ $annee->periode }}</option>
                         @endif
                         @endforeach
                       </select>

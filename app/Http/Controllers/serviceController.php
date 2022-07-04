@@ -27,8 +27,9 @@ class serviceController extends Controller
         ->join('composantes','services.composante_id','=','composantes.id')
         ->select('services.id','services.nom','services.code_des','services.composante_id','composantes.code_des as composante')
         // ->distinct()
+        
         ->get();
-        $composantes = composante::all();
+        $composantes = DB::table('composantes')->orderByRaw("composantes.nom")->get();
         $role = DB::table('role_user')
             ->join('roles', 'role_user.role_id', '=', 'roles.id')
             ->select('role_user.*', 'roles.*')

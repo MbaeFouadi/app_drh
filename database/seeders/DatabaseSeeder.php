@@ -27,10 +27,12 @@ class DatabaseSeeder extends Seeder
         // $this->call(LaratrustSeeder::class);
         // $this->call(TypeContratSeeder::class);
         // $this->call(ContratSeeder::class);
-        $this->call([indicesSeeder::class,
-        // anneesSeeder::class,
-        // PeriodeSeeder::class
-    ]);
+    //     $this->call([indicesSeeder::class,
+    //     // anneesSeeder::class,
+    //     // PeriodeSeeder::class
+    // ]);
+
+    $this->call(PeriodeSeeder::class);
 
 
 

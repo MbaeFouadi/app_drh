@@ -9,6 +9,7 @@ use App\Models\affectation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\affecation_employer;
+use App\Models\periodes;
 use Illuminate\Support\Facades\Auth;
 use MercurySeries\Flashy\Flashy;
 
@@ -23,8 +24,10 @@ class AffectationController extends Controller
     {
         //
         $employer = employer::where('user_id', Auth::user()->id)->orderBydesc('id')->first();
-        $composantes = composante::all();
-        $annees = annees::all();
+        // $composantes = composante::all();
+        $composantes = DB::table('composantes')->orderByRaw("composantes.nom")->get();
+
+        $annees = periodes::all();
         $role = DB::table('role_user')
             ->join('roles', 'role_user.role_id', '=', 'roles.id')
             ->select('role_user.*', 'roles.*')
@@ -92,7 +95,7 @@ class AffectationController extends Controller
             $erreur = "Vous avez atteint le nombre maximale de ce poste";
             $employer = employer::where('user_id', Auth::user()->id)->orderBydesc('id')->first();
             $composantes = composante::all();
-            $annees = annees::where("id",);
+            $annees = periodes::where("id",);
             $role = DB::table('role_user')
                 ->join('roles', 'role_user.role_id', '=', 'roles.id')
                 ->select('role_user.*', 'roles.*')
@@ -204,9 +207,9 @@ class AffectationController extends Controller
     {
 
         $fonctions = DB::table("fonctions")->where("id", $request->fonction_id)->first();
-        $annees = DB::table('annees')
+        $annees = DB::table('periodes')
             ->Where("id", $fonctions->annee_id)
-            ->pluck("annee", "id");
+            ->pluck("periode", "id");
         return response()->json($annees);
     }
 }
