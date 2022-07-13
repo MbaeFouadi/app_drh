@@ -72,6 +72,22 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-6">
+                      <div class="form-group">
+                          @error('annees')
+                          <div class="alert alert-danger">{{ $message }}</div>
+                          @enderror
+                          <label for="exampleInputPassword1">Années</label>
+                          <select class="form-control" name="annees" id="annees" required>
+                          <option value="">Années</option>
+                            @foreach($periodes as $periode )
+                            <option value="{{$periode->annee_id}}">{{$periode->periode}}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
                         <div class="form-group">
                           @error('composantes')
                           <div class="alert alert-danger">{{ $message }}</div>
@@ -79,9 +95,9 @@
                           <label for="exampleInputEmail1">Composantes</label>
                           <select class="form-control" name="composantes" id="composantes" required>
                             <option>Composantes</option>
-                            @foreach ($composantes as $composante)
+                            <!-- @foreach ($composantes as $composante)
                             <option value="{{$composante->id}}">{{ $composante->nom}}</option>
-                            @endforeach
+                            @endforeach -->
                           </select>
                         </div>
                         <div class="form-group">
@@ -106,15 +122,11 @@
                         </div>
 
                         <div class="form-group">
-                          @error('annees')
-                          <div class="alert alert-danger">{{ $message }}</div>
-                          @enderror
-                          <label for="exampleInputPassword1">Années</label>
-                          <select class="form-control" name="annees" id="annees" required>
-
-                            <option value="">Années</option>
-
-                          </select>
+                        @error('numero_post')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <label for="exampleInputPassword1">Poste de Travail</label>
+                        <input type="text" name="numero_post" class="form-control" id="exampleInputPassword1" placeholder="Post de travail" required>
                         </div>
                       </div>
                     </div>
@@ -130,11 +142,7 @@
                             <option value="Retraiter">Retraite</option>
                           </select>
                         </div> -->
-                        @error('numero_post')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                        <label for="exampleInputPassword1">Poste de Travail</label>
-                        <input type="text" name="numero_post" class="form-control" id="exampleInputPassword1" placeholder="Post de travail" required>
+                      
                       </div>
                         
 
@@ -237,8 +245,39 @@
     });
   </script>
   <script type=text/javascript>
+    $('#annees').change(function() {
+      var annees_id = $(this).val();
+      if (annees_id) {
+        $.ajax({
+          type: "POST",
+          // url:"{{url('getCorps')}}?country_id="+countryID,
+          url: "{{route('getComposantes')}}",
+          data: {
+            annees_id: annees_id,
+            _token: '{{csrf_token()}}'
+          },
+          success: function(res) {
+            if (res) {
+              console.log(annees_id);
+              $("#composantes").empty();
+              $("#composantes").append('<option>Selectionner la composante</option>');
+              $.each(res, function(key, value) {
+                $("#composantes").append('<option value="' + key + '">' + value + '</option>');
+              });
+
+            } else {
+              $("#composantes").empty();
+            }
+          }
+        });
+      } else {
+        $("#services").empty();
+        $("#service").empty();
+      }
+    });
     $('#composantes').change(function() {
       var composantes_id = $(this).val();
+      var annees_id = $("#annees" ).val();
       if (composantes_id) {
         $.ajax({
           type: "POST",
@@ -246,10 +285,14 @@
           url: "{{route('getServices')}}",
           data: {
             composantes_id: composantes_id,
+            annees_id: annees_id,
             _token: '{{csrf_token()}}'
           },
           success: function(res) {
             if (res) {
+              console.log(composantes_id);
+              console.log(annees_id);
+
               $("#services").empty();
               $("#services").append('<option>Selectionner le service</option>');
               $.each(res, function(key, value) {
@@ -268,6 +311,8 @@
     });
 
     $('#services').change(function() {
+      var composantes_id = $("#composantes").val();
+      var annees_id = $("#annees" ).val();
       var services_id = $(this).val();
 
 
@@ -277,6 +322,8 @@
           // url:"{{url('getCorps')}}?country_id="+countryID,
           url: "{{route('getFonctions')}}",
           data: {
+            composantes_id: composantes_id,
+            annees_id: annees_id,
             services_id: services_id,
             _token: '{{csrf_token()}}'
           },
@@ -300,38 +347,38 @@
       }
     });
 
-    $('#fonctions').change(function() {
-      var fonction_id = $(this).val();
+    // $('#fonctions').change(function() {
+    //   var fonction_id = $(this).val();
 
 
-      if (fonction_id) {
-        $.ajax({
-          type: "POST",
-          // url:"{{url('getCorps')}}?country_id="+countryID,
-          url: "{{route('getAnnees')}}",
-          data: {
-            fonction_id: fonction_id,
-            _token: '{{csrf_token()}}'
-          },
-          success: function(res) {
-            if (res) {
+    //   if (fonction_id) {
+    //     $.ajax({
+    //       type: "POST",
+    //       // url:"{{url('getCorps')}}?country_id="+countryID,
+    //       url: "{{route('getAnnees')}}",
+    //       data: {
+    //         fonction_id: fonction_id,
+    //         _token: '{{csrf_token()}}'
+    //       },
+    //       success: function(res) {
+    //         if (res) {
 
-              $("#annees").empty();
-              $("#annees").append('<option>Selectionner l\'annee</option>');
-              $.each(res, function(key, value) {
-                $("#annees").append('<option value="' + key + '">' + value + '</option>');
-              });
+    //           $("#annees").empty();
+    //           $("#annees").append('<option>Selectionner l\'annee</option>');
+    //           $.each(res, function(key, value) {
+    //             $("#annees").append('<option value="' + key + '">' + value + '</option>');
+    //           });
 
-            } else {
-              $("#annees").empty();
-            }
-          }
-        });
-      } else {
-        $("#annees").empty();
-        $("#annees").empty();
-      }
-    });
+    //         } else {
+    //           $("#annees").empty();
+    //         }
+    //       }
+    //     });
+    //   } else {
+    //     $("#annees").empty();
+    //     $("#annees").empty();
+    //   }
+    // });
   </script>
 </body>
 

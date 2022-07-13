@@ -34,6 +34,7 @@ class CreateEmployersTable extends Migration
             $table->integer("annee_id");
             $table->integer("position_id");
             $table->integer("type_contrat_id");
+            $table->string("agent");
             $table->unsignedInteger("user_id");
             $table->unsignedInteger("ide");
             $table->timestamps();

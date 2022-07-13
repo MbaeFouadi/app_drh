@@ -23,7 +23,9 @@ use App\Http\Controllers\recherche_formationController;
 use App\Http\Controllers\recherche_avancementController;
 use App\Http\Controllers\recherche_affectationController;
 use App\Http\Controllers\RetraiteController;
+use App\Http\Controllers\SalaireController;
 use App\Http\Controllers\statistiqueController;
+use App\Models\salaire;
 
 /*
 |--------------------------------------------------------------------------
@@ -112,6 +114,7 @@ Route::post('/avancement/getEchelons',[AvancementController::class, 'getEchelons
 Route::post('/avancement/getClasses',[AvancementController::class, 'getClasses'])->middleware(['auth'])->name('getClasses');
 Route::post('/avancement/getIndices',[AvancementController::class, 'getIndices'])->middleware(['auth'])->name('getIndices');
 Route::resource('/affectation',AffectationController::class)->middleware(['auth']);
+Route::post('/affectation/getComposantes',[AffectationController::class, 'getComposantes'])->middleware(['auth'])->name('getComposantes');
 Route::post('/affectation/getServices',[AffectationController::class, 'getServices'])->middleware(['auth'])->name('getServices');
 Route::post('/affectation/getFonctions',[AffectationController::class, 'getFonctions'])->middleware(['auth'])->name('getFonctions');
 Route::post('/affectation/getAnnees',[AffectationController::class, 'getAnnees'])->middleware(['auth'])->name('getAnnees');
@@ -121,6 +124,7 @@ Route::get('/fiche_signaletique/{id}',[ficheController::class, 'fiche_signaletiq
 Route::get('/Statistique_composantes',[statistiqueController::class, 'composantes'])->middleware(['auth'])->name('composantes');
 Route::get('/Statistique_genre',[statistiqueController::class, 'genre'])->middleware(['auth'])->name('genre');
 Route::resource('/retraites',RetraiteController::class)->middleware(['auth']);
+Route::get('/periodes_re/{id}',[RetraiteController::class,'periode_re'])->middleware(['auth'])->name('periodes_re');
 Route::get('/Periode_retraites',[RetraiteController::class, 'pageRe'])->middleware(['auth'])->name('page_re');
 Route::get('/liste_retraites',[RetraiteController::class, 'liste_retraites'])->middleware(['auth'])->name('liste_retraites');
 Route::get("/contrat_normal_cdd",[ContratController::class,'index'])->middleware(['auth']);
@@ -144,6 +148,10 @@ Route::get("/contrat_cdd/{id}",[ContratController::class,'contrat_cdd'])->middle
 Route::get("/contrat_cdi/{id}",[ContratController::class,'contrat_cdi'])->middleware(['auth'])->name('contrat_cdi');
 Route::post('/grilles_indiciaires',[affectationsController::class,'grilles_indiciaires'])->middleware(['auth'])->name('grilles_indiciaires');
 Route::get('/grilles_corps',[affectationsController::class,'corps_grille'])->middleware(['auth'])->name('corps_grille');
+Route::get('/recherche_user',[SalaireController::class,'recherche_user'])->middleware(['auth'])->name('recherche_user');
+Route::resource('/salaire',SalaireController::class)->middleware(['auth']);
+
+
 
 
 

@@ -261,9 +261,6 @@
     </div>
   </div>
   <div class="row">
-
-
-
     <div class="col-md-6">
       <div class="form-group">
         @error('position_id')
@@ -296,17 +293,39 @@
           @foreach($contrats as $contrat)
           @if (old('type_contrat_id')==$contrat->id)
           <option value="{{$contrat->id}}" selected>{{$contrat->code_design_contrat}}</option>
-            
+
           @else
           <option value="{{$contrat->id}}">{{$contrat->code_design_contrat}}</option>
-            
+
           @endif
           @endforeach
         </select>
       </div>
 
     </div>
+
   </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        @error('position_id')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+        <label for="exampleInputEmail1">Agent Origine<span style="color:red">*</span></label>
+        <select class="form-control @error('statut') is-invalid @enderror" name="agent">
+          <option value="">Agent</option>
+          <option value="IATOS" @if (old('statut')=="IATOS" ) {{ 'selected' }} @endif>IATOS</option>
+          <option value="FOP" @if (old('statut')=="FOP" ) {{ 'selected' }} @endif>FOP</option>
+        </select>
+      </div>
+
+    </div>
+
+
+    </div>
+
+  </div>
+
   <!-- /.card-body -->
 
 
@@ -345,7 +364,7 @@
   <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
-  
+
   <!-- jQuery -->
   <script src="plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap 4 -->

@@ -74,7 +74,8 @@ class EmployerController extends Controller
             'compte_bancaire' => 'required|unique:employers,compte_bancaire',
             'position_id' => 'required',
             'annee' => 'required',
-            'type_contrat_id' => 'required'
+            'type_contrat_id' => 'required',
+            'agent' => 'required'
         ]);
 
         $emp = DB::table("employers")->OrderByDesc('id')->first();
@@ -116,6 +117,7 @@ class EmployerController extends Controller
             'annee_id' => substr($request->date_naissance, 0, -6),
             'position_id' => $request->position_id,
             'type_contrat_id' => $request->type_contrat_id,
+            'agent' => $request->agent,
             'ide'=>$nbre,
             'user_id' => Auth::user()->id
         ]);
@@ -254,6 +256,7 @@ class EmployerController extends Controller
         $datas = DB::table("employers")
             ->where("type_contrat_id",'=', 1)
             ->orWhere("type_contrat_id",'=', 2)
+            ->orderByRaw("employers.nom")
             ->get();
         return view("pages.liste", compact("role", 'datas'));
     }

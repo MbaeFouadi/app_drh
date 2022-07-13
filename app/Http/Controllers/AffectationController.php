@@ -24,15 +24,20 @@ class AffectationController extends Controller
     {
         //
         $employer = employer::where('user_id', Auth::user()->id)->orderBydesc('id')->first();
-        // $composantes = composante::all();
-        $composantes = DB::table('composantes')->orderByRaw("composantes.nom")->get();
+        $composantes = composante::all();
+        $periodes = DB::table('fonctions')
+            ->join("periodes", "fonctions.annee_id", "=", "periodes.id")
+            ->select("periodes.periode", "fonctions.annee_id")
+            ->distinct()
+            ->orderByDesc("periodes.periode")
+            ->get();
 
         $annees = periodes::all();
         $role = DB::table('role_user')
             ->join('roles', 'role_user.role_id', '=', 'roles.id')
             ->select('role_user.*', 'roles.*')
             ->where("role_user.user_id", Auth::user()->id)->first();
-        return view('pages.affectation', compact('composantes', 'employer', 'annees', 'role'));
+        return view('pages.affectation', compact('composantes', 'employer', 'annees', 'role', 'periodes'));
     }
 
     /**
@@ -87,8 +92,8 @@ class AffectationController extends Controller
                 ->join('roles', 'role_user.role_id', '=', 'roles.id')
                 ->select('role_user.*', 'roles.*')
                 ->where("role_user.user_id", Auth::user()->id)->first();
-            session()->flash("message","affectation créer avec succès");
-        Flashy::message('Affectation créer avec succès');
+            session()->flash("message", "affectation créer avec succès");
+            Flashy::message('Affectation créer avec succès');
 
             return redirect(route('affectation.index', compact('role')));
         } else {
@@ -96,13 +101,19 @@ class AffectationController extends Controller
             $employer = employer::where('user_id', Auth::user()->id)->orderBydesc('id')->first();
             $composantes = composante::all();
             $annees = periodes::where("id",);
+            $periodes = DB::table('fonctions')
+                ->join("periodes", "fonctions.annee_id", "=", "periodes.id")
+                ->select("periodes.periode", "fonctions.annee_id")
+                ->distinct()
+                ->orderByDesc("periodes.periode")
+                ->get();
             $role = DB::table('role_user')
                 ->join('roles', 'role_user.role_id', '=', 'roles.id')
                 ->select('role_user.*', 'roles.*')
                 ->where("role_user.user_id", Auth::user()->id)->first();
 
 
-            return view('pages.affectation', compact('composantes', 'employer', 'annees', 'erreur', 'role'));
+            return view('pages.affectation', compact('composantes', 'employer', 'annees', 'erreur', 'role','periodes'));
         }
     }
 
@@ -184,12 +195,26 @@ class AffectationController extends Controller
         //
     }
 
-
+    public function getComposantes(Request $request)
+    {
+        $composantes = DB::table('composantes')
+            ->join("services", "composantes.id", "=", "services.composante_id")
+            ->join("fonctions", "services.id", "=", "fonctions.service_id")
+            ->where("fonctions.annee_id", $request->annees_id)
+            ->select("composantes.nom as composante", "composantes.id as composantes_id", "services.nom as service", "fonctions.nom as fonction")
+            ->orderByDesc("composante")
+            ->pluck("composante", "composantes_id");
+        return response()->json($composantes);
+    }
     public function getServices(Request $request)
     {
         $services = DB::table('services')
+            ->join("fonctions", "services.id", "=", "fonctions.service_id")
+            ->where("fonctions.annee_id", $request->annees_id)
             ->where("composante_id", $request->composantes_id)
-            ->pluck("nom", "id");
+            ->select("services.nom as service", "services.id as services_id", "fonctions.*")
+            ->orderByDesc("service")
+            ->pluck("service", "services_id");
         return response()->json($services);
     }
 
@@ -198,18 +223,22 @@ class AffectationController extends Controller
 
 
         $fonction = DB::table('fonctions')
+            ->join("services", "services.id", "=", "fonctions.service_id")
             ->Where("service_id", $request->services_id)
-            ->pluck("nom", "id");
+            ->where("fonctions.annee_id", $request->annees_id)
+            ->select("services.*", "fonctions.nom as fonction", "fonctions.id as fonctions_id")
+            ->orderByDesc("fonction")
+            ->pluck("fonction", "fonctions_id");
         return response()->json($fonction);
     }
 
-    public function getAnnees(Request $request)
-    {
+    // public function getAnnees(Request $request)
+    // {
 
-        $fonctions = DB::table("fonctions")->where("id", $request->fonction_id)->first();
-        $annees = DB::table('periodes')
-            ->Where("id", $fonctions->annee_id)
-            ->pluck("periode", "id");
-        return response()->json($annees);
-    }
+    //     $fonctions = DB::table("fonctions")->where("id", $request->fonction_id)->first();
+    //     $annees = DB::table('periodes')
+    //         ->Where("id", $fonctions->annee_id)
+    //         ->pluck("periode", "id");
+    //     return response()->json($annees);
+    // }
 }

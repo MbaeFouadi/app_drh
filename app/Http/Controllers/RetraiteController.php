@@ -125,8 +125,8 @@ class RetraiteController extends Controller
             ->select('role_user.*', 'roles.*')
             ->where("role_user.user_id", Auth::user()->id)->first();
 
-        $dateDifference = substr("1940-08-22", 0, -6);
-        $age = 70;
+        //$dateDifference = substr("1940-08-22", 0, -6);
+        // $age = 70;
 
 
 
@@ -171,5 +171,41 @@ class RetraiteController extends Controller
             ->select('role_user.*', 'roles.*')
             ->where("role_user.user_id", Auth::user()->id)->first();
         return view('pages.liste_retraites', compact('contrats', 'role'));
+    }
+
+    public function periode_re($id)
+    {
+
+
+        $update=DB::table("employers")
+        ->where('id', $id)
+        ->update([
+            'position_id'=>3
+        ]);
+
+        $dt = new DateTime();
+        $date = $dt->format('Y');
+        $role = DB::table('role_user')
+            ->join('roles', 'role_user.role_id', '=', 'roles.id')
+            ->select('role_user.*', 'roles.*')
+            ->where("role_user.user_id", Auth::user()->id)->first();
+
+        //$dateDifference = substr("1940-08-22", 0, -6);
+        // $age = 70;
+
+
+
+        $users = DB::table('avancements')
+            ->join('avancement_employer', 'avancements.id', '=', 'avancement_employer.avancement_id')
+            ->join('retraites', 'avancements.corps_id', '=', 'retraites.corps_id')
+            ->join('employers', 'avancement_employer.employer_id', '=', 'employers.id')
+            ->join('corps', 'corps.id', '=', 'avancements.corps_id')
+            ->select('avancements.*', 'avancement_employer.*', 'retraites.*', 'employers.*', 'corps.nom as nom_corps')
+            ->where('employers.position_id', 1)
+            ->orderByDesc('avancements.id')
+            ->get();
+
+        return view('pages.pageRe', compact('role', 'users', 'date'));
+
     }
 }

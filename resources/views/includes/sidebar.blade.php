@@ -186,6 +186,16 @@ $nbr = DB::table('conges')->where('motif', 'Demande en cours de traitement')->wh
                   <p class="text-light">Affectations</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('salaire.index') }}" class="nav-link">
+                  <!-- <i class="nav-icon fas fa-asterisk"></i> -->
+                  <i class="nav-icon fas fa-solid fa-minus"></i>
+
+
+
+                  <p class="text-light">Salaires (Optionnel)</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item">

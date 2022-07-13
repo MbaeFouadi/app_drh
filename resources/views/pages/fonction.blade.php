@@ -316,10 +316,11 @@
   </div>
   <!-- ./wrapper -->
   <script src="//code.jquery.com/jquery.js"></script>
-  @include('flashy::message')
 
   <!-- jQuery -->
   <script src="plugins/jquery/jquery.min.js"></script>
+  @include('flashy::message')
+
   <!-- Bootstrap 4 -->
   <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- bs-custom-file-input -->

@@ -73,7 +73,7 @@ Carbon::setLocale('fr'); ?>
         <div class="card card-info">
           <div class="card-header">
 
-            <h3 class="card-title">Liste des employé(e)s</h3>
+            <h3 class="card-title">Liste des employé(e)s {{substr("1940-08-22",0,-6)}}</h3>
 
           </div>
           <!-- /.card-header -->
@@ -103,7 +103,7 @@ Carbon::setLocale('fr'); ?>
               </thead>
               <tbody>
                 @foreach($users as $user)
-                @if($user->age < $date-$user->annee_id)
+                @if($user->age < $date-substr($user->date_naissance, 0, -6))
                   <tr>
 
                     <td>
@@ -127,7 +127,7 @@ Carbon::setLocale('fr'); ?>
 
                     </td>
                     <td>
-                      <a href="">Retraité</a>
+                      <a href="{{route('periodes_re',$user->id)}}">Retraité</a>
                       <!-- / <a class="btn btn-info btn-sm" href="">
                         <i class="fas fa-pencil-alt">
                         </i>

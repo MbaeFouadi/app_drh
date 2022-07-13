@@ -26,6 +26,12 @@ class recherche_affectationController extends Controller
             'search'=>"required|exists:employers,matricule",
         ]);
         $composantes=composante::all();
+        $periodes = DB::table('fonctions')
+        ->join("periodes","fonctions.annee_id","=","periodes.id")
+        ->select("periodes.periode","fonctions.annee_id")
+        ->distinct()
+        ->orderByDesc("periodes.periode")
+        ->get();
         $annees=annees::all();
         $employer=employer::where('matricule','like','%'.$request->search.'%')->first();
         $role = DB::table('role_user')
@@ -33,6 +39,6 @@ class recherche_affectationController extends Controller
         ->select('role_user.*','roles.*')
         ->where("role_user.user_id",Auth::user()->id)->first();
 
-        return view('pages.affectation',compact('employer','composantes','annees','role'));
+        return view('pages.affectation',compact('employer','composantes','annees','role','periodes'));
     }
 }
