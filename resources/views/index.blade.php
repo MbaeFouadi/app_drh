@@ -70,7 +70,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3>{{$emp->count()}}</h3>
 
                 <p>Employé(e)s</p>
               </div>
@@ -85,7 +85,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3>{{$conge->count()}}<sup style="font-size: 20px"></sup></h3>
 
                 <p>Demandes congées</p>
               </div>
@@ -100,7 +100,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3>{{$user->count()}}</h3>
 
                 <p>Utilisateurs</p>
               </div>

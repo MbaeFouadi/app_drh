@@ -48,8 +48,11 @@ Route::get('/accueil', function () {
     ->join('roles', 'role_user.role_id', '=', 'roles.id')
     ->select('role_user.*','roles.*')
     ->where("role_user.user_id",Auth::user()->id)->first();
+    $emp=DB::table("employers")->get();
+    $user=DB::table("users")->get();
+    $conge=DB::table("conges")->get();
     // return redirect()->intended(RouteServiceProvider::HOME,compact('role'));
-    return view('index',compact('role'));
+    return view('index',compact('role','emp','user','conge'));
     // return view('index');
 
 })->middleware(['auth'])->name('accueil');

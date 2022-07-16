@@ -107,7 +107,7 @@ class EmployerController extends Controller
             'adresse' => $request->adresse,
             'telephone' => $request->telephone,
             'email' => $request->email,
-            'password' => Hash::make('password'),
+            'password' => Hash::make('1234'),
             'sexe' => $request->sexe,
             'statut' => $request->statut,
             'nombre_enfant' => $request->nombre_enfant,
