@@ -39,7 +39,7 @@ class recherche_statutController extends Controller
         ->select('role_user.*','roles.*')
         ->where("role_user.user_id",Auth::user()->id)->first();
 
-        return view('pages.statut',compact('annees','employer','role'));
+        return view('pages.statut_re',compact('annees','employer','role'));
 
     }
 }

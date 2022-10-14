@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="shortcut icon" href="images/udc.png">
   <script src="plugins/jquery/jquery.min.js"></script>
 
 </head>
@@ -121,27 +122,31 @@
                           </select>
                         </div>
 
+                      
                         <div class="form-group">
+                          @error('corps')
+                          <div class="alert alert-danger">{{ $message }}</div>
+                          @enderror
+                          <label for="exampleInputEmail1">Corps</label>
+                          <select class="form-control" name="corps" required>
+                            <option value="">Selectionner le corps</option>
+                            <option value="Enseignant Chercheur">Enseignant Chercheur</option>
+                            <option value="Enseignant">Enseignant</option>
+                            <option value="Personnel">Personnel</option>
+
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                      <div class="form-group">
                         @error('numero_post')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <label for="exampleInputPassword1">Poste de Travail</label>
                         <input type="text" name="numero_post" class="form-control" id="exampleInputPassword1" placeholder="Post de travail" required>
                         </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <!-- <div class="form-group">
-                          @error('position')
-                          <div class="alert alert-danger">{{ $message }}</div>
-                          @enderror
-                          <label for="exampleInputEmail1">Position</label>
-                          <select class="form-control" name="position">
-                            <option value="Actif">Actif</option>
-                            <option value="Retraiter">Retraite</option>
-                          </select>
-                        </div> -->
                       
                       </div>
                         

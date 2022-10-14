@@ -98,6 +98,7 @@ Route::get('/affecta',[recherche_affectationController::class,'recherche'])->mid
 Route::get('/form',[recherche_formationController::class,'recherche'])->middleware(['auth'])->name('form');
 Route::get('/stat',[recherche_statutController::class,'recherche'])->middleware(['auth'])->name('stat');
 Route::get('/statut',[annee_statutController::class,'index'])->middleware(['auth'])->name('statut');
+Route::post('/statut_re',[StatutController::class, 'statut_re'])->middleware(['auth'])->name('statut_re');
 Route::post('/statut/getCorps',[annee_statutController::class, 'getCorps'])->middleware(['auth'])->name('getCorps');
 Route::post('/statut/getEchelons',[annee_statutController::class, 'getEchelons'])->middleware(['auth'])->name('getEchelons');
 Route::post('/statut/getClasses',[annee_statutController::class, 'getClasses'])->middleware(['auth'])->name('getClasses');
@@ -112,6 +113,7 @@ Route::get('/Liste_employée',[EmployerController::class,'liste'])->middleware([
 Route::resource('/formation',FormationController::class)->middleware(['auth']);
 Route::resource('/statut/form',StatutController::class)->middleware(['auth']);
 Route::resource('/avancement',AvancementController::class)->middleware(['auth']);
+Route::post('/avancement_re',[AvancementController::class, 'avancement_re'])->middleware(['auth'])->name('avancement_re');
 Route::post('/avancement/getCorps',[AvancementController::class, 'getCorps'])->middleware(['auth'])->name('getCorps');
 Route::post('/avancement/getEchelons',[AvancementController::class, 'getEchelons'])->middleware(['auth'])->name('getEchelons');
 Route::post('/avancement/getClasses',[AvancementController::class, 'getClasses'])->middleware(['auth'])->name('getClasses');

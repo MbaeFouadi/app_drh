@@ -26,8 +26,16 @@ class affectationsController extends Controller
         $classes=classes::all();
         $corps=corps::all();
         $indices=indices::all();
+
+        // $indices=DB::table("indices")
+        // ->orderBy('nom','desc')
+        // ->get();
         $echelons=echelons::all();
-        $annees=annees::all();
+        // $annees=annees::all();
+
+        $annees=DB::table("annees")
+        ->orderByRaw("annee")
+        ->get();
         $role = DB::table('role_user')
         ->join('roles', 'role_user.role_id', '=', 'roles.id')
         ->select('role_user.*','roles.*')
@@ -223,7 +231,7 @@ class affectationsController extends Controller
         ->join('corps','classes_corps_echelons_indices_periodes.corps_id','=','corps.id')
         ->select('classes.nom as noms','classes.id as ide','classes_corps_echelons_indices_periodes.periodes_id as periodes_id','classes_corps_echelons_indices_periodes.corps_id as corps_id','corps.*')
         ->distinct()
-        ->where("periodes_id",9)
+        ->where("periodes_id",$request->annee_id)
         // ->where("corps_id",$corps->ids)
         ->orderBy('ide','ASC')
         ->get();
@@ -234,7 +242,7 @@ class affectationsController extends Controller
         ->join('classes','classes_corps_echelons_indices_periodes.classes_id','=','classes.id')
         ->select('classes.nom as noms','classes_corps_echelons_indices_periodes.periodes_id as periodes_id','classes_corps_echelons_indices_periodes.corps_id as corps_id','corps.*','echelons.nom as echelon')
         ->distinct()
-        ->where("periodes_id",9)
+        ->where("periodes_id",$request->annee_id)
         // ->where("corps_id",$corps->ids)
         // ->orderBy('id','ASC')
         ->get();
@@ -259,6 +267,7 @@ class affectationsController extends Controller
         ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
         ->where("classes_corps_echelons_indices_periodes.classes_id",1)
         ->where("classes_corps_echelons_indices_periodes.echelons_id",4)
+        ->where("classes_corps_echelons_indices_periodes.periodes_id",$request->annee_id)
         // ->where("classes_corps_echelons_indices_periodes.indices_id",)
         ->first();
 
@@ -272,6 +281,7 @@ class affectationsController extends Controller
         ->where("classes_corps_echelons_indices_periodes.classes_id",2)
         ->where("classes_corps_echelons_indices_periodes.echelons_id",3)
         // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        ->where("classes_corps_echelons_indices_periodes.periodes_id",$request->annee_id)
         ->first();
         $p2=DB::table("classes_corps_echelons_indices_periodes")
         ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
@@ -283,6 +293,7 @@ class affectationsController extends Controller
         ->where("classes_corps_echelons_indices_periodes.classes_id",2)
         ->where("classes_corps_echelons_indices_periodes.echelons_id",2)
         // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        ->where("classes_corps_echelons_indices_periodes.periodes_id",$request->annee_id)
         ->first();
         $p1=DB::table("classes_corps_echelons_indices_periodes")
         ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
@@ -293,6 +304,7 @@ class affectationsController extends Controller
         ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
         ->where("classes_corps_echelons_indices_periodes.classes_id",2)
         ->where("classes_corps_echelons_indices_periodes.echelons_id",1)
+        ->where("classes_corps_echelons_indices_periodes.periodes_id",$request->annee_id)
         // ->where("classes_corps_echelons_indices_periodes.indices_id",)
         ->first();
         $first3=DB::table("classes_corps_echelons_indices_periodes")
@@ -305,7 +317,10 @@ class affectationsController extends Controller
         ->where("classes_corps_echelons_indices_periodes.classes_id",3)
         ->where("classes_corps_echelons_indices_periodes.echelons_id",3)
         // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        ->where("classes_corps_echelons_indices_periodes.periodes_id",$request->annee_id)
         ->first();
+
+
         $first2=DB::table("classes_corps_echelons_indices_periodes")
         ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
         ->join("classes",'classes.id',"classes_corps_echelons_indices_periodes.classes_id")
@@ -316,7 +331,10 @@ class affectationsController extends Controller
         ->where("classes_corps_echelons_indices_periodes.classes_id",3)
         ->where("classes_corps_echelons_indices_periodes.echelons_id",2)
         // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        ->where("classes_corps_echelons_indices_periodes.periodes_id",$request->annee_id)
         ->first();
+
+
         $first1=DB::table("classes_corps_echelons_indices_periodes")
         ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
         ->join("classes",'classes.id',"classes_corps_echelons_indices_periodes.classes_id")
@@ -326,6 +344,7 @@ class affectationsController extends Controller
         ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
         ->where("classes_corps_echelons_indices_periodes.classes_id",3)
         ->where("classes_corps_echelons_indices_periodes.echelons_id",1)
+        ->where("classes_corps_echelons_indices_periodes.periodes_id",$request->annee_id)
         // ->where("classes_corps_echelons_indices_periodes.indices_id",)
         ->first();
         $first4=DB::table("classes_corps_echelons_indices_periodes")
@@ -337,6 +356,7 @@ class affectationsController extends Controller
         ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
         ->where("classes_corps_echelons_indices_periodes.classes_id",3)
         ->where("classes_corps_echelons_indices_periodes.echelons_id",4)
+        ->where("classes_corps_echelons_indices_periodes.periodes_id",$request->annee_id)
         // ->where("classes_corps_echelons_indices_periodes.indices_id",)
         ->first();
         $second4=DB::table("classes_corps_echelons_indices_periodes")
@@ -348,6 +368,7 @@ class affectationsController extends Controller
         ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
         ->where("classes_corps_echelons_indices_periodes.classes_id",4)
         ->where("classes_corps_echelons_indices_periodes.echelons_id",4)
+        ->where("classes_corps_echelons_indices_periodes.periodes_id",$request->annee_id)
         // ->where("classes_corps_echelons_indices_periodes.indices_id",)
         ->first();
         $second3=DB::table("classes_corps_echelons_indices_periodes")
@@ -359,6 +380,7 @@ class affectationsController extends Controller
         ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
         ->where("classes_corps_echelons_indices_periodes.classes_id",4)
         ->where("classes_corps_echelons_indices_periodes.echelons_id",3)
+        ->where("classes_corps_echelons_indices_periodes.periodes_id",$request->annee_id)
         // ->where("classes_corps_echelons_indices_periodes.indices_id",)
         ->first();
         $second2=DB::table("classes_corps_echelons_indices_periodes")
@@ -370,6 +392,7 @@ class affectationsController extends Controller
         ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
         ->where("classes_corps_echelons_indices_periodes.classes_id",4)
         ->where("classes_corps_echelons_indices_periodes.echelons_id",2)
+        ->where("classes_corps_echelons_indices_periodes.periodes_id",$request->annee_id)
         // ->where("classes_corps_echelons_indices_periodes.indices_id",)
         ->first();
         $second1=DB::table("classes_corps_echelons_indices_periodes")
@@ -382,6 +405,7 @@ class affectationsController extends Controller
         ->where("classes_corps_echelons_indices_periodes.classes_id",4)
         ->where("classes_corps_echelons_indices_periodes.echelons_id",1)
         // ->where("classes_corps_echelons_indices_periodes.indices_id",)
+        ->where("classes_corps_echelons_indices_periodes.periodes_id",$request->annee_id)
         ->first();
         $stagiaire=DB::table("classes_corps_echelons_indices_periodes")
         ->join("corps",'corps.id','=','classes_corps_echelons_indices_periodes.corps_id')
@@ -392,6 +416,7 @@ class affectationsController extends Controller
         ->where("classes_corps_echelons_indices_periodes.corps_id",$request->corps_id)
         ->where("classes_corps_echelons_indices_periodes.classes_id",4)
         ->where("classes_corps_echelons_indices_periodes.echelons_id",5)
+        ->where("classes_corps_echelons_indices_periodes.periodes_id",$request->annee_id)
         // ->where("classes_corps_echelons_indices_periodes.indices_id",)
         ->first();
 

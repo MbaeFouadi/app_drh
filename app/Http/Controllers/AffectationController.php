@@ -65,6 +65,8 @@ class AffectationController extends Controller
             'composantes' => 'required',
             'services' => 'required',
             'fonctions' => 'required',
+            'corps' => 'required'
+
         ]);
 
         $fonctions = DB::table('fonctions')
@@ -76,6 +78,7 @@ class AffectationController extends Controller
         if ($affectations->count() < $nbre) {
             affectation::create([
                 'numero_post' => $request->numero_post,
+                'corps' => $request->corps,
                 'composante_id' => $request->composantes,
                 'service_id' => $request->services,
                 'fonction_id' => $request->fonctions,
@@ -169,7 +172,8 @@ class AffectationController extends Controller
             ->where('id', $id)
             ->update([
                 'numero_post' => $request->numero_post,
-                'position' => $request->position,
+              
+                'corps' => $request->corps,
                 'composante_id' => $request->composantes,
                 'service_id' => $request->services,
                 'fonction_id' => $request->fonctions,

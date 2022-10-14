@@ -39,6 +39,6 @@ class recherche_avancementController extends Controller
         ->get();
         $employer=employer::where('matricule','like','%'.$request->search.'%')->first();
 
-        return view('pages.avancement',compact('annees','employer','role'));
+        return view('pages.avancement_re',compact('annees','employer','role'));
     }
 }

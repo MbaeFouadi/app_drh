@@ -13,13 +13,15 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
   <link rel="stylesheet" href="{{ asset('styles.css') }}">
+  <link rel="shortcut icon" href="images/udc.png">
+
 
 </head>
 
 <body>
-  <div class="container">
-    <div class="row bloc1">
-      <div class="col- logo">
+  <div class="container" id='sectionAimprimer'>
+    <div class="row bloc1"  >
+      <div class="col- logo " >
         <img src="{{ asset('images/udc.png') }}" class="text-center">
       </div>
       <div class="col-">
@@ -30,19 +32,23 @@
     </div>
     <div class="grand-bloc">
       <div class="row">
-        <div class="col-md-9"><span style="border-right:1px solid black;padding-left:12px;padding-right:12px;border-top:1px solid black;"><b>Etat Civil</b></span></div>
-        <div class="col-md-3 da" style="border-left:1px solid black;padding-left:12px;padding-right:12px;"><span>Date d'édition:01/01/2010</span></div>
+        <div class="col-md-9"><span style="border-right:2px solid black;padding-left:12px;padding-right:12px;font-size:23px"><i><b>Etat Civil</b></i></span></div>
+        <div class="col-md-3 da" style="border-left:2px solid black;padding-left:12px;padding-right:12px;"><span>Date d'édition:{{$date}}</span></div>
       </div>
-      <div class="etat">
+      <div class="etat"><br>
         <div class="row">
-          <div class="col-md-6">
-            <h3>{{$employer->nom }} {{$employer->prenom }}</h3>
+          <div class="col-6">
+            <h2>{{$employer->nom }} {{$employer->prenom }}</h2>
           </div>
-          <div class="col-md-6"> {{$employer->matricule }}</div>
+          <div class="col-4 " style="text-align:right;font-size:23px"> <span><strong>Matricule N°</strong></span> @if ($employer->mat_fop==NULL)
+          {{$employer->matricule }}
+          @else
+          {{$employer->mat_fop }}
+          @endif </div>
         </div>
-        <div class="row">
+        <div class="row"  id="taille">
           <div class="col-2">Ne(é) le</div>
-          <div class="col-10">{{$employer->date_naissance }} à {{$employer->lieu_naissance}}</div>
+          <div class="col-10"> {{\Carbon\Carbon::parse($employer->date_naissance)->translatedFormat('d/m/Y')}} à {{$employer->lieu_naissance}}</div>
         </div>
         <div class="row">
           <div class="col-2">Demeurant à</div>
@@ -58,15 +64,15 @@
         </div>
         @if($formations->count()>0)
       </div><br><br>
-      <span style="border-right:1px solid black;padding-left:12px;padding-right:12px;border-top:1px solid black;"><b>Formation Académique</b></span>
+      <span style="border-right:2px solid black;padding-left:12px;padding-right:12px;border-top:2px solid black; font-size:23px"><i><b>Formation Académique</b></i></span>
       <div class="formation">
-        <div class="row">
+        <div class="row"  id="taille">
           @foreach ($formations as $formation)
           <div class="col-md-6">{{$formation->annee }} {{$formation->diplome }} </div>
           <div class="col-md-6"> {{$formation->lieu }} {{$formation->genre }} </div>
           @endforeach
 
-        </div><br><br><br><br><br><br><br><br>
+        </div><br><br>
         @endif
 
         {{-- <div class="row">
@@ -75,35 +81,47 @@
         </div><br><br><br><br><br><br><br><br> --}}
         @isset($statut)
 
-        <span style="border-right:1px solid black;padding-left:12px;padding-right:12px;border-top:1px solid black;"><b>Statut initial</b></span>
+        <span style="border-right:2px solid black;padding-left:12px;padding-right:12px;border-top:2px solid black; font-size:23px"><i><b>Statut initial</b></i></span>
 
       </div>
-      <div class="statut">
-        <div class="">Recruté le {{$statut->date_re }} par note {{$statut->note}} du decision {{ $statut->date_dec}}</div>
-        <div>Corps:{{$grille->corp }} Classe:{{$grille->classe }} Echelon:{{$grille->echelon }}</div>
-        <div>indice:{{$grille->indice}}</div>
+      <div class="statut"  id="taille">
+        <div class="">Recruté(e) le {{\Carbon\Carbon::parse($statut->date_re)->translatedFormat('d/m/Y')}} par {{$statut->type}} N°: {{$statut->note}} du {{\Carbon\Carbon::parse($statut->date_dec)->translatedFormat('d/m/Y')}}</div>
+        <div>
+          <div class="row">
+            <div class="col-md-4">Corps: {{$grille->corp }}</div>
+            <div class="col-md-4">{{$grille->classe }} Classe</div>
+            <div class="col-md-4">Echelon:{{$grille->echelon }}</div>
+
+
+          </div>
+                 </div>
+        <div>Indice:{{$grille->indice}}</div>
         <div> Ministere d'origine: {{$statut->ministere}}</div><br>
         @endisset
 
         @if($avancements->count()>0)
-        <span style="border-right:1px solid black;padding-left:12px;padding-right:12px;border-top:1px solid black;"><b>Statut Actuel</b></span><span style="margin-left:10px">Iatos</span>
+        <span style="border-right:2px solid black;padding-left:12px;padding-right:12px;border-top:2px solid black; font-size:23px"><i><b>Statut Actuel</b></i></span><span style="margin-left:10px">{{$employer->agent }}</span>
 
       </div>
 
-      <div class="avancement">
+      <div class="avancement"  id="taille">
         @foreach ($avancements as $avancement)
-        <div class="">Avancé le {{$avancement->date_avan }} par décision {{$avancement->note}} du {{$avancement->date_dec}}</div>
-        <div>Corps: {{$grilles->corp}} {{$grilles->classe }} Class Echelon:{{$grilles->echelon}}</div>
-        <div>indice:{{$grilles->indice}}</div><br><br>
+        <div class="">{{$avancement->type_av}} le {{\Carbon\Carbon::parse($avancement->date_avan)->translatedFormat('d/m/Y')}} par {{$avancement->type}}  {{$avancement->note}} du {{\Carbon\Carbon::parse($avancement->date_dec)->translatedFormat('d/m/Y')}}</div>
+        <div class="row">
+        <div class="col-md-4">Corps: {{$avancement->corp }}</div>
+            <div class="col-md-4">{{$avancement->classe }} Classe</div>
+            <div class="col-md-4">Echelon:{{$avancement->echelon }}</div>
+        </div>
+        <div>Indice:{{$avancement->indice}}</div><br><br>
         @endforeach
         @endif
 
         @isset($composante)
-        <span style="border-right:1px solid black;padding-left:12px;padding-right:12px;border-top:1px solid black;"><b>Affectation</b></span><span style="margin-left:10px">Université des Comores</span>
+        <span style="border-right:2px solid black;padding-left:12px;padding-right:12px;border-top:2px solid black; font-size:23px"><i><b>Affectation</b></i></span><span style="margin-left:10px">Université des Comores</span>
 
 
       </div>
-      <div class="affectation">
+      <div class="affectation"  id="taille">
         <div class="row">
           <div class="col-md-9">
 
@@ -114,18 +132,18 @@
             <div>Position : {{$employers->position}}</div>
 
 
-            <br><br><br>
+            <br>
             @endisset
 
-            <div>Reglement par virement bancaire sur le compte SNPSF N°:{{$employer->compte_bancaire}}</div>
+            <div  id="taille">Reglement par virement bancaire sur le compte SNPSF N°: {{$employer->compte_bancaire}}</div>
           </div>
 
-          <div class="col-md-3 aff">
-            <div class="signature">Cachet & Cachet du DRH</div>
+          <div class="col-md-3 aff"  id="taille">
+            <div class="signature">Signature & Cachet du DRH</div>
             <div class="tex">
-              <p class="text-center">Hassani Hamada
-              <p>
-              <p class="text-center">Certifiée et Conforme
+              <p class="text-center"> <strong>Hassani Hamada</strong> <br> <br> 
+            
+               Certifiée et Conforme
               <p>
             </div>
 
@@ -135,19 +153,30 @@
 
     </div>
     <div class="text-center">
-      <p style="font-size: 12px"> clamer que le chemin est long ne le raccourcit pas, le raccourcir c'est faire un pas en avant<br>
+      <p style="font-size: 12px"> Clamer que le chemin est long ne le raccourcit pas, le raccourcir c'est faire un pas en avant<br>
         <span style="font-size: 12px">udombowa dziya ke yishashiha yowushashiha hawurenga wusoni</span><br>
-        <span style="font-size: 12px">Université des comores, rue de la corniche, BP 2585 Mroni- Tel:(+269) 773 42 27/7734243/7739023-couriel:univ-com@comorestelecom-km</span>
+        <span style="font-size: 12px">Université des Comores, rue de Mavingouni BP 2585 Moroni- Tel:+269,7734243-7739023- Email:contact@univ-comores.km</span>
       </p>
     </div>
   </div>
   <div class="container">
     <div class="row">
       <div class="col-md-6"><a class="btn btn-primary" href="{{route('accueil') }}">Quittez</a></div>
-      <div class="col-md-6"><button class="btn btn-primary">Imprimer</button></div>
+      <div class="col-md-6"><button class="btn btn-primary"  onClick="imprimer('sectionAimprimer')">Imprimer</button></div>
 
     </div>
   </div>
+
+  <script>
+            function imprimer(divName){
+                var restorepage=document.body.innerHTML;
+                var printContent=document.getElementById(divName).innerHTML;
+
+                document.body.innerHTML=printContent;
+                window.print();
+                document.body.innerHTML=restorepage;
+            }
+    </script>
 
   <!-- jQuery -->
   <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>

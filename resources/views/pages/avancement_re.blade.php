@@ -3,9 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="csrf-token" content="content">
-  <meta name="csrf-token" content="{{csrf_token()}}">
-
   <title>UDC</title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -16,12 +13,13 @@
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <link rel="shortcut icon" href="images/udc.png">
 
-  <script src="plugins/jquery/jquery.min.js"></script>
-
 </head>
-<
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
+   <!-- Preloader -->
+   <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="images/udc.png" alt="AdminLTELogo" height="60" width="60">
+  </div>
     <!-- Navbar -->
 @include('includes.navbar')
 <!-- /.navbar -->
@@ -36,12 +34,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="text-center text-info">Statut initial</h1>
+            <h1 class="text-center text-info">Avancement</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#" class="text-info">Accueil</a></li>
-              <li class="breadcrumb-item active">Statut initial</li>
+              <li class="breadcrumb-item active">Avancement</li>
             </ol>
           </div>
         </div>
@@ -57,117 +55,131 @@
             <!-- general form elements -->
             <div class="card card-info">
               <div class="card-header">
-                <h3 class="card-title">Statut initiale</h3>
-              </div>
+                <h3 class="card-title">Avancement</h3>
+              </div><br>
+              <!-- @if (session()->has('message'))
+                <div class="alert alert-success">
+                  {{session()->get('message')}}
+                </div>
+              @endif -->
               <!-- /.card-header -->
               <!-- form start -->
-              @if($employer->statut_id=='')
-                <form  action="{{route('form.store')}}" method="POST">
-                  @csrf
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          @error('annees')
-                          <div class="alert alert-danger">{{ $message }}</div>
-                          @enderror
-                          <label for="exampleInputEmail1">Année</label>
-                            <select class="form-control @error('annees') is-invalid @enderror" name="annees" id="annees" >
-                              <option value="">Année</option>
-                              @foreach ($annees as $annee)
-                              @if (old('annees')==$annee->id_annee)
-                              <option value="{{$annee->id_annee}}" selected>{{ $annee->annee }}</option>
-                                
-                              @else
-                              <option value="{{$annee->id_annee}}">{{ $annee->annee }}</option>
-                                
-                              @endif
-                              @endforeach
-                            </select>
-                        </div>
-
+              <form action="{{ route ('avancement_re')}}" method="POST">
+                @csrf
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        @error('annees')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <label for="exampleInputEmail1">Année</label>
+                          <select class="form-control" name="annees" id="annees" required>
+                          <option value="">Annee</option>
+                            @foreach ($annees as $annee)
+                            <option value="{{$annee->id_annee}}">{{ $annee->annee }}</option>
+                            @endforeach
+                          </select>
                       </div>
+                      
 
                     </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          @error('date_re')
-                          <div class="alert alert-danger">{{ $message }}</div>
-                          @enderror
-                          <label for="exampleInputEmail1">Date recrutement</label>
-                          <input type="date" name="date_re" value="{{old('date_re')}}" class="form-control @error('date_re') is-invalid @enderror" id="exampleInputEmail1" placeholder="date recrutement" required>
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInputPassword1">Corps</label>
-                            @error('corps')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                            <select class="form-control @error('corps') is-invalid @enderror" name="corps" id="corps" required>
-                              <option value="">Corps</option>
-                            </select>
-                        </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        @error('type_av')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <label for="exampleInputEmail1">Type avancement</label>
+                        <select class="form-control" name="type_av">
+                          <option value="Avancé(e)">Avancé(e)</option>
+                          <option value="Recruté(e)">Recruté(e)</option>
+                          <option value="Reclassé(e">Reclassé(e)</option>
+                          <option value="Intégré(e)">Intégré(e)</option>
+                        </select>
+                    </div>
+                    </div>
+
+                   
+
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        @error('date_avan')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <label for="exampleInputEmail1">Date avancement</label>
+                        <input type="date" name="date_avan" class="form-control" id="exampleInputEmail1" placeholder="date recrutement" required>
                       </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          @error('date_dec')
-                          <div class="alert alert-danger">{{ $message }}</div>
-                          @enderror
-                          <label for="exampleInputEmail1">Date décision</label>
-                          <input type="date" name="date_dec" value="{{old('date_dec')}}" class="form-control @error('date_dec') is-invalid @enderror" id="exampleInputEmail1" placeholder="date decision" required>
-                        </div>
-                        <div class="form-group">
+                      <div class="form-group">
+                        @error('corps')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <label for="exampleInputPassword1">Corps</label>
+                        <select class="form-control" name="corps" id="corps" required>
+                          <option value="">Corps</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        @error('date_dec')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <label for="exampleInputEmail1">Date décision</label>
+                        <input type="date" name="date_dec" class="form-control" id="exampleInputEmail1" placeholder="date decision" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Classes</label>
                           @error('classes')
                           <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
-                          <label for="exampleInputEmail1">Classes</label>
-                          <select class="form-control @error('classes') is-invalid @enderror"  name="classes" id="classes" required>
-                            <option value="">Classes</option>
+                          <select class="form-control" name="classes" id="classes" required>
+                          <option value="">Classes</option>
                           </select>
-                        </div>
-
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          @error('echelons')
-                          <div class="alert alert-danger">{{ $message }}</div>
-                          @enderror
-                          <label for="exampleInputEmail1">Echelons</label>
-                            <select class="form-control @error('echelons') is-invalid @enderror" name="echelons" id="echelons" required >
-                              <option value="">Echelons</option>
-
-                            </select>
-                        </div>
-
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        @error('echelons')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <label for="exampleInputEmail1">Echelons</label>
+                        <select class="form-control" name="echelons" id="echelons" required>
+                          <option value="">Echelons</option>
+                        </select>
                       </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          @error('indices')
-                          <div class="alert alert-danger">{{ $message }}</div>
-                          @enderror
-                          <label for="exampleInputEmail1 ">Indices</label>
-                          <select class="form-control @error('indices') is-invalid @enderror" name="indices" id="indices" required>
-                            <option value="">Indices</option>
 
-                          </select>
-                        </div>
-                      </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          @error('note')
-                          <div class="alert alert-danger">{{ $message }}</div>
-                          @enderror
-                          <label for="exampleInputPassword1">Note</label>
-                          <input type="text" name="note" value="{{old('note')}}" class="form-control @error('note') is-invalid @enderror" id="exampleInputPassword1" placeholder="note" required>
-                        </div>
-
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        @error('indices')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <label for="exampleInputEmail1">Indices</label>
+                        <select class="form-control" name="indices" id="indices" required>
+                          <option value="">Indices</option>
+                        </select>
                       </div>
 
-                      <div class="col-md-6">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        @error('note')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <label for="exampleInputPassword1">Note</label>
+                        <input type="text" name="note"class="form-control" id="exampleInputPassword1" placeholder="note" required>
+                      </div>
+                        <div class="form-group">
+                          <input type="hidden" name="employer_id" class="form-control" id="exampleInputPassword1" value="{{ $employer->id }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
                       <div class="form-group">
                         @error('type')
                         <div class="alert alert-danger">{{ $message }}</div>
@@ -176,49 +188,27 @@
                         <select class="form-control" name="type"  required>
                           <option value="Décision">Décision</option>
                           <option value="Arretée">Arrêtée</option>
-                          <option value="Note">Note</option>
-                          <option value="Contrat">Contrat</option>
-
+                          <option value="note">Note</option>
+                          <option value="Conrat">Contrat</option>
 
                         </select>
                       </div>
 
                     </div>
-
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          @error('ministere')
-                          <div class="alert alert-danger">{{ $message }}</div>
-                          @enderror
-                          <label for="exampleInputEmail1">Ministère  Origine</label>
-                          <input type="text" name="ministere" value="{{old('ministere')}}" class="form-control @error('ministere') is-invalid @enderror" id="exampleInputEmail1" placeholder="Ministère Origine" required>
-                        </div>
-                      </div>
-
-                    </div>
-
-
-
-
                   </div>
-                  <!-- /.card-body -->
+                </div>
+                <!-- /.card-body -->
 
 
 
-                  <div class="card-footer">
-                    <button type="submit" class="btn btn-primary btn-info btn-sm">Enregistrer</button>
-                  <a href="{{route('avancement.index')}}"class="btn btn-info btn-sm text-right">Suivant</a>
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-info btn-sm">Enregistrez</button>
+                  <a href="{{route('affectation.index')}}"class="btn btn-info btn-sm text-right">Suivant</a>
                   <a href="{{route('accueil')}}"class="btn btn-info btn-sm text-right">Quitter</a>
-
-                    {{-- <button type="submit" class="btn btn-warning">Modifier</button>
-                    <button type="submit" class="btn btn-danger">Supprimer</button> --}}
-                  </div>
-                </form>
-              @else
-                <h4 class="text-center">Employe deja enregistré<h4>
-              @endif
+                  {{-- <button type="submit" class="btn btn-warning">Modifier</button>
+                  <button type="submit" class="btn btn-danger">Supprimer</button> --}}
+                </div>
+              </form>
             </div>
 
 
@@ -268,9 +258,10 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
+<script src="//code.jquery.com/jquery.js"></script>
+@include('flashy::message')
 <!-- jQuery -->
-<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- bs-custom-file-input -->

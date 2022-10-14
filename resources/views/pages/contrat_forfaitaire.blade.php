@@ -13,6 +13,8 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('contrat.css') }}">
+  <link rel="shortcut icon" href="images/udc.png">
+
 
 </head>
 

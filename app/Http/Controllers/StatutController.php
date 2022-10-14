@@ -62,6 +62,7 @@ class StatutController extends Controller
         'date_re'=>$request->date_re,
         'date_dec'=>$request->date_dec,
         'note'=>$request->note,
+        'type'=>$request->type,
         'corps_id'=>$request->corps,
         'echelons_id'=>$request->echelons,
         'classes_id'=>$request->classes,
@@ -128,6 +129,7 @@ class StatutController extends Controller
         ->update([ 'date_re'=>$request->date_re,
         'date_dec'=>$request->date_dec,
         'note'=>$request->note,
+        'type'=>$request->type,
         'corps_id'=>$request->corps,
         'echelons_id'=>$request->echelons,
         'classes_id'=>$request->classes,
@@ -153,5 +155,62 @@ class StatutController extends Controller
     public function destroy(statut $statut)
     {
         //
+    }
+
+    public function statut_re(Request $request )
+    {
+        $request->validate([
+            'date_re'=>'required',
+            'annees'=>'required',
+            'date_dec'=>'required',
+            'note'=>'required',
+            'corps'=>'required',
+            'echelons'=>'required',
+            'classes'=>'required',
+            'indices'=>'required',
+            'ministere'=>'required',
+
+        ]);
+
+        statut::create([
+
+        'date_re'=>$request->date_re,
+        'date_dec'=>$request->date_dec,
+        'note'=>$request->note,
+        'type'=>$request->type,
+        'corps_id'=>$request->corps,
+        'echelons_id'=>$request->echelons,
+        'classes_id'=>$request->classes,
+        'indices_id'=>$request->indices,
+        'ministere'=>$request->ministere,
+        'user_id'=>Auth::user()->id
+
+        ]);
+         $statut=statut::where('user_id',Auth::user()->id)->orderByDesc('id')->first();
+        // $statut=DB::table('statuts')
+        // ->join('employers','employers.user_id','=','statuts.user_id')
+        // ->select('statuts.*','employers.id')
+        // ->where('employers.id',$request->employer_id)
+        // ->first();
+
+        $employer_formation=employer_formation::where('user_id',Auth::user()->id)->orderByDesc('id')->first();
+        $employers=employer::where('user_id',Auth::user()->id)->orderByDesc('id')->first();
+
+        //  $upd=DB::table('employers')
+        // ->where('user_id',Auth::user()->id)
+        // ->update(['statut_id',$statut->id])
+
+        $update = DB::table('employers')
+        ->where('id',$request->employer_id)
+        ->update(['statut_id' => $statut->id]);
+
+
+        session()->flash("message","Statut initial créer avec succès");
+        Flashy::message('Statut initial créer avec succès');
+
+
+
+
+         return redirect(route('liste'));
     }
 }

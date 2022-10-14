@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+  <link rel="shortcut icon" href="images/udc.png">
+
 <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
 
 </head>
@@ -114,17 +116,19 @@
                   </div>
                   <div class="row">
                     <div class="col-md-6">
-                      <div class="form-group">
-                        @error('position')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                        <label for="exampleInputEmail1">Position</label>
-                        <select class="form-control" name="position">
-                          <option value="{{ $affectation->position }}">{{ $affectation->position }}</option>
-                          <option value="Actif">Actif</option>
-                          <option value="Retraiter">Retraite</option>
-                        </select>
-                      </div>
+                    <div class="form-group">
+                          @error('corps')
+                          <div class="alert alert-danger">{{ $message }}</div>
+                          @enderror
+                          <label for="exampleInputEmail1">Corps</label>
+                          <select class="form-control" name="corps" required>
+                            <option value="{{ $affectation->corps }}">{{ $affectation->corps }}</option>
+                            <option value="Enseignant Chercheur">Enseignant Chercheur</option>
+                            <option value="Enseignant">Enseignant</option>
+                            <option value="Personnel">Personnel</option>
+
+                          </select>
+                        </div>
 
                       <div class="form-group">
                         {{-- <input type="hidden" name="employer_id" class="form-control" id="exampleInputPassword1" value="{{ $employer->id }}"> --}}

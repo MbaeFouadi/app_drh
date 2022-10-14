@@ -17,6 +17,7 @@ class CreateEmployersTable extends Migration
             $table->id();
             $table->string("nin");
             $table->string("matricule");
+            $table->string("mat_fop");
             $table->string("nom");
             $table->string("prenom");
             $table->string("date_naissance");

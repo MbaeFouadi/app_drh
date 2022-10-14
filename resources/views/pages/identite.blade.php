@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="shortcut icon" href="images/udc.png">
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -69,8 +71,18 @@
                           <div class="alert alert-danger">{{ $message }}
                           </div>
                           @enderror
-                          <label for="exampleInputEmail1">Nin <span style="color:red">*</span></label>
+                          <label for="exampleInputEmail1">Nin</label>
                           <input type="text" class="form-control @error('nin') is-invalid @enderror " id="exampleInputEmail1" placeholder="Nin" name="nin" value="{{old('nin')}}">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          @error('mat_fop')
+                          <div class="alert alert-danger">{{ $message }}
+                          </div>
+                          @enderror
+                          <label for="exampleInputEmail1">Matricule FOP</label>
+                          <input type="text" class="form-control @error('mat_fop') is-invalid @enderror " id="exampleInputEmail1" placeholder="Matricule FOP" name="mat_fop" value="{{old('mat_fop')}}">
                         </div>
                       </div>
                     </div>
@@ -287,9 +299,9 @@
         @error('type_contrat_id')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
-        <label for="exampleInputEmail1">Type de Contrat <span style="color:red">*</span></label>
+        <label for="exampleInputEmail1">Type de Contrat </span></label>
         <select class="form-control @error('type_contrat_id') is-invalid @enderror" name="type_contrat_id">
-          <option value="">Type contrat</option>
+          <option value="0">Type contrat</option>
           @foreach($contrats as $contrat)
           @if (old('type_contrat_id')==$contrat->id)
           <option value="{{$contrat->id}}" selected>{{$contrat->code_design_contrat}}</option>
@@ -308,11 +320,11 @@
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
-        @error('position_id')
+        @error('agent')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
         <label for="exampleInputEmail1">Agent Origine<span style="color:red">*</span></label>
-        <select class="form-control @error('statut') is-invalid @enderror" name="agent">
+        <select class="form-control @error('agent') is-invalid @enderror" name="agent">
           <option value="">Agent</option>
           <option value="IATOS" @if (old('statut')=="IATOS" ) {{ 'selected' }} @endif>IATOS</option>
           <option value="FOP" @if (old('statut')=="FOP" ) {{ 'selected' }} @endif>FOP</option>

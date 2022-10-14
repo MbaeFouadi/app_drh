@@ -18,6 +18,7 @@ class CreateStatutsTable extends Migration
             $table->string("date_re");
             $table->string("date_dec");
             $table->string("note");
+            $table->string("type");
             $table->unsignedInteger("corps_id");
             $table->unsignedInteger("echelons_id");
             $table->unsignedInteger("classes_id");

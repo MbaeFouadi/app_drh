@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="shortcut icon" href="images/udc.png">
+
 </head>
 
 <body class="hold-transition sidebar-mini">

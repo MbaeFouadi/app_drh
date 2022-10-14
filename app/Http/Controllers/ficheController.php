@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\annees;
 use App\Models\employer;
 use App\Models\composante;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -89,6 +90,10 @@ class ficheController extends Controller
 
     public function fiche_signaletique($id)
     {
+
+        $dt = new DateTime();
+        $date = $dt->format('d/m/Y');
+        
         $composantes=composante::all();
         $annees=annees::all();
 
@@ -119,7 +124,11 @@ class ficheController extends Controller
 
         $avancements= DB::table('avancement_employer')
         ->join('avancements', 'avancement_employer.avancement_id', '=', 'avancements.id')
-        ->select('avancement_employer.*','avancements.*')
+        ->join('corps', 'avancements.corps_id', '=', 'corps.id')
+        ->join('echelons', 'avancements.echelons_id', '=', 'echelons.id')
+        ->join('indices', 'avancements.indices_id', '=', 'indices.id')
+        ->join('classes', 'avancements.classes_id', '=', 'classes.id')
+        ->select('avancement_employer.*','avancements.*','corps.nom as corp','echelons.nom as echelon','indices.nom as indice','classes.nom as classe')
         ->where("avancement_employer.employer_id",$employer->id)->get();
 
         $grilles= DB::table('avancements')
@@ -129,8 +138,8 @@ class ficheController extends Controller
         ->join('indices', 'avancements.indices_id', '=', 'indices.id')
         ->join('classes', 'avancements.classes_id', '=', 'classes.id')
         ->select('avancements.*','avancement_employer.*','corps.nom as corp','echelons.nom as echelon','indices.nom as indice','classes.nom as classe')
-
         ->where("avancement_employer.employer_id",$employer->id)->first();
+
         $statut=DB::table('statuts')->where('id',$employer->statut_id)->first();
 
 
@@ -149,6 +158,6 @@ class ficheController extends Controller
         ->orderByDesc('affecation_employers.id')
         ->where("affecation_employers.employer_id",$employer->id)
         ->first();
-        return view('pages.fiche',compact('employer','formations','statut','grille','avancements','grilles','affectation','composante','employers'));
+        return view('pages.fiche',compact('employer','formations','statut','grille','avancements','grilles','affectation','composante','employers','date'));
     }
 }

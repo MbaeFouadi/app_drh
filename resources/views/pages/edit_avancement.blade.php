@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href=" {{asset('dist/css/adminlte.min.css') }}">
+  <link rel="shortcut icon" href="images/udc.png">
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -75,7 +77,23 @@
                             @endforeach
                           </select>
                       </div>
+                      
 
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        @error('type_av')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <label for="exampleInputEmail1">Type avancement</label>
+                        <select class="form-control" name="type_av" >
+                        <option value="{{ $avancement->type_av }}">{{ $avancement->type_av }}</option>
+                          <option value="Avancé(e)">Avancé(e)</option>
+                          <option value="Recruté(e)">Recruté(e)</option>
+                          <option value="Reclassé(e">Reclassé(e)</option>
+                          <option value="Intégré(e)">Intégré(e)</option>
+                        </select>
+                    </div>
                     </div>
 
                   </div>
@@ -152,9 +170,28 @@
                         <label for="exampleInputPassword1">Note</label>
                         <input type="text" name="note"class="form-control" id="exampleInputPassword1" placeholder="note" value="{{ $avancement->note }}">
                       </div>
+                      
                         <div class="form-group">
                           <input type="hidden" name="employer_id" class="form-control" id="exampleInputPassword1" value="{{ $avancement->note }}">
                         </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        @error('type')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <label for="exampleInputEmail1">Type</label>
+                        <select class="form-control" name="type" >
+                        <option value="{{ $avancement->type }}">{{ $avancement->type }}</option>
+                          <option value="Décision">Décision</option>
+                          <option value="Arretée">Arrêtée</option>
+                          <option value="Note">Note</option>
+                          <option value="Contrat">Contrat</option>
+
+
+                        </select>
+                      </div>
+
                     </div>
                   </div>
                 </div>

@@ -1,5 +1,5 @@
 .fi{
-    border: 1px solid black ;
+    border: 2px solid black ;
     /* width: 35%; */
     padding-left: 25px;
     padding-right: 25px;
@@ -20,10 +20,10 @@ img{
 }
 .grand-bloc{
     margin-top: 45px;
-    border-right: 1px solid black;
-    border-left: 1px solid black;
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
 
 
 
@@ -31,12 +31,12 @@ img{
 }
 .formation{
     /* border-right: none; */
-    border-top: 1px solid black ;
+    border-top: 2px solid black ;
 
 }
 
 .statut{
-    border-block: 1px solid black ;
+    border-block: 2px solid black ;
 
 }
 /* .avancement{
@@ -44,20 +44,20 @@ img{
 
 } */
 .affectation{
-    border-top: 1px solid black ;
+    border-top: 2px solid black ;
 
 }
 .etat{
-    border-top: 1px solid black ;
+    border-top: 2px solid black ;
 
 }
 .aff{
-    border-left: 1px solid black;
+    border-left: 2px solid black;
 
 }
 
 .signature{
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid black;
 }
 
 .tex{
@@ -69,11 +69,15 @@ img{
 }
 
 .fa  {
-    border:1px solid black;
+    border:2px solid black;
     padding-left:12px;
     padding-right:12px;
 }
 
 .da{
     margin-left: -6px;
+}
+
+#taille{
+    font-size: 18px;
 }

@@ -9,5 +9,5 @@ class statut extends Model
 {
     use HasFactory;
 
-    protected $fillable=['date_re','date_dec','note','corps_id','echelons_id','classes_id','indices_id','ministere','user_id'];
+    protected $fillable=['date_re','date_dec','note','corps_id','echelons_id','classes_id','indices_id','ministere','user_id','statut','type'];
 }

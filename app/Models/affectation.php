@@ -9,5 +9,5 @@ class affectation extends Model
 {
     use HasFactory;
 
-    protected $fillable=['numero_post','composante_id','service_id','fonction_id','employer_id','user_id'];
+    protected $fillable=['numero_post','corps','composante_id','service_id','fonction_id','employer_id','user_id'];
 }

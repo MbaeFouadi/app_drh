@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href=" {{ asset('dist/css/adminlte.min.css') }}">
+  <link rel="shortcut icon" href="images/udc.png">
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -95,6 +97,28 @@
                     </div> --}}
                   </div>
                   </div>
+                  <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          @error('nin')
+                          <div class="alert alert-danger">{{ $message }}
+                          </div>
+                          @enderror
+                          <label for="exampleInputEmail1">Nin</label>
+                          <input type="text" class="form-control @error('nin') is-invalid @enderror " id="exampleInputEmail1" placeholder="Nin" name="nin" value="{{$data->nin}}">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          @error('mat_fop')
+                          <div class="alert alert-danger">{{ $message }}
+                          </div>
+                          @enderror
+                          <label for="exampleInputEmail1">Matricule FOP</label>
+                          <input type="text" class="form-control @error('mat_fop') is-invalid @enderror " id="exampleInputEmail1" placeholder="Matricule FOP" name="mat_fop" value="{{$data->mat_fop}}">
+                        </div>
+                      </div>
+                    </div>
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
@@ -224,7 +248,89 @@
                     </div>
 
                    
-                </div>
+                    <div class="col-md-6">
+      <div class="form-group">
+        @error('annee')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+        <label for="exampleInputEmail1">Année recrutement </label>
+        <select class="form-control @error('annee') is-invalid @enderror" name="annee">
+          <option value="{{ $data->annee_id }}">{{ $data->annee_id }}</option>
+          @foreach($annees as $anne)
+          @if (old('annee')==$anne->annee)
+          <option value="{{$anne->annee}}" selected>{{$anne->annee}}</option>
+          @else
+          <option value="{{$anne->annee}}">{{$anne->annee}}</option>
+          @endif
+          @endforeach
+        </select>
+      </div>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        @error('position_id')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+        <label for="exampleInputEmail1">position <span style="color:red">*</span></label>
+        <select class="form-control @error('position_id') is-invalid @enderror" name="position_id">
+          <option value="{{$posi->posi_id}}">{{$posi->position}}</option>
+          @foreach($positions as $position)
+          @if (old('position_id')==$position->id)
+          <option value="{{$position->id}}" selected>{{$position->position}}</option>
+
+          @else
+          <option value="{{$position->id}}">{{$position->position}}</option>
+
+          @endif
+          @endforeach
+        </select>
+      </div>
+
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        @error('type_contrat_id')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+        <label for="exampleInputEmail1">Type de Contrat </span></label>
+        <select class="form-control @error('type_contrat_id') is-invalid @enderror" name="type_contrat_id">
+          <option value="{{$contrate->contrat_id}}">{{$contrate->code_design_contrat}}</option>
+          @foreach($contrats as $contrat)
+          @if (old('type_contrat_id')==$contrat->id)
+          <option value="{{$contrat->id}}" selected>{{$contrat->code_design_contrat}}</option>
+
+          @else
+          <option value="{{$contrat->id}}">{{$contrat->code_design_contrat}}</option>
+
+          @endif
+          @endforeach
+        </select>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        @error('position_id')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+        <label for="exampleInputEmail1">Agent Origine<span style="color:red">*</span></label>
+        <select class="form-control @error('statut') is-invalid @enderror" name="agent">
+          <option value="{{ $data->agent }}">{{ $data->agent }}</option>
+          <option value="IATOS" @if (old('statut')=="IATOS" ) {{ 'selected' }} @endif>IATOS</option>
+          <option value="FOP" @if (old('statut')=="FOP" ) {{ 'selected' }} @endif>FOP</option>
+        </select>
+      </div>
+
+    </div>
+
+
+    </div>
                 <!-- /.card-body -->
 
 
@@ -248,6 +354,8 @@
     </section>
     <!-- /.content -->
     <!-- Main content -->
+    
+   
     <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -260,7 +368,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              
+              @isset($statut)
                 <form  action="{{route('form.update',$statut->id)}}" method="POST">
                   @csrf
                   @method('PUT')
@@ -357,18 +465,39 @@
                           <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
                           <label for="exampleInputPassword1">Note</label>
-                          <input type="text" name="note" class="form-control" id="exampleInputPassword1" placeholder="note" value="{{ $statut->note }}">
+                          <input type="text" name="note"  class="form-control @error('note') is-invalid @enderror" id="exampleInputPassword1" value="{{ $statut->note}}">
                         </div>
 
                       </div>
 
                       <div class="col-md-6">
+                      <div class="form-group">
+                        @error('type')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <label for="exampleInputEmail1">Type</label>
+                        <select class="form-control" name="type"  >
+                        <option value="{{ $statut->type}}">{{ $statut->type}}</option>
+                          <option value="Décision">Décision</option>
+                          <option value="Arretée">Arrêtée</option>
+                          <option value="note">Note</option>
+                          <option value="Contrat">Contrat</option>
+
+
+                        </select>
+                      </div>
+
+                    </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
                         <div class="form-group">
                           @error('ministere')
                           <div class="alert alert-danger">{{ $message }}</div>
                           @enderror
-                          <label for="exampleInputEmail1">Entreprise Origine</label>
-                          <input type="text" name="ministere" class="form-control" id="exampleInputEmail1" placeholder="Entreprise Origine" value="{{ $statut->ministere }}">
+                          <label for="exampleInputEmail1">Ministère  Origine</label>
+                          <input type="text" name="ministere"  class="form-control @error('ministere') is-invalid @enderror" id="exampleInputEmail1" value="{{ $statut->ministere}}">
                         </div>
                       </div>
 
@@ -387,12 +516,15 @@
                     <button type="submit" class="btn btn-danger">Supprimer</button> --}}
                   </div>
                 </form>
+          @endisset
+
              
             </div>
 
 
 
           </div>
+
           <div class="col-md-6">
             <div class="card card-info card-outline">
                 <div class="card-body box-profile">

@@ -18,6 +18,8 @@ class CreateAvancementsTable extends Migration
             $table->string("date_avan");
             $table->string("date_dec");
             $table->string("note");
+            $table->string("type");
+            $table->string("type_av");
             $table->unsignedInteger("corps_id");
             $table->unsignedInteger("echelons_id");
             $table->unsignedInteger("classes_id");

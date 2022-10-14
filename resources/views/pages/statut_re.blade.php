@@ -62,7 +62,7 @@
               <!-- /.card-header -->
               <!-- form start -->
               @if($employer->statut_id=='')
-                <form  action="{{route('form.store')}}" method="POST">
+                <form  action="{{route('statut_re')}}" method="POST">
                   @csrf
                   <div class="card-body">
                     <div class="row">
@@ -179,7 +179,6 @@
                           <option value="Note">Note</option>
                           <option value="Contrat">Contrat</option>
 
-
                         </select>
                       </div>
 
@@ -196,6 +195,7 @@
                           <input type="text" name="ministere" value="{{old('ministere')}}" class="form-control @error('ministere') is-invalid @enderror" id="exampleInputEmail1" placeholder="Ministère Origine" required>
                         </div>
                       </div>
+                      <input type="hidden" name="employer_id" value="{{$employer->id}}">
 
                     </div>
 

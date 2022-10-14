@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="shortcut icon" href="images/udc.png">
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -37,7 +39,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#" class="text-info">Accueil</a></li>
-              <li class="breadcrumb-item active">Affecttion</li>
+              <li class="breadcrumb-item active">Affectation</li>
             </ol>
           </div>
         </div>

@@ -61,20 +61,20 @@ class EmployerController extends Controller
         //
 
         $request->validate([
-            'nin' => 'required|unique:employers,nin',
+            // 'nin' => 'required|unique:employers,nin',
             'nom' => 'required',
             'prenom' => 'required',
             'date_naissance' => 'required',
             'lieu_naissance' => 'required',
             'adresse' => 'required',
             'telephone' => 'required',
-           
+
             'sexe' => 'required',
             'statut' => 'required',
             'compte_bancaire' => 'required|unique:employers,compte_bancaire',
             'position_id' => 'required',
             'annee' => 'required',
-            'type_contrat_id' => 'required',
+            // 'type_contrat_id' => 'required',
             'agent' => 'required'
         ]);
 
@@ -84,21 +84,16 @@ class EmployerController extends Controller
         } else {
             $nbre = 1;
         }
-        if($nbre < 10)
-        {
-            $mat =  "00".$nbre."-"."U" . "/" . substr($request->annee, 2);
-        }
-        elseif($nbre < 100)
-        {
-            $mat =  "0".$nbre."-"."U" . "/" . substr($request->annee, 2);
-        }
-        else
-        {
-            $mat =  $nbre."-"."U" . "/" . substr($request->annee, 2);
-
+        if ($nbre < 10) {
+            $mat =  "00" . $nbre . "-" . "U" . "/" . substr($request->annee, 2);
+        } elseif ($nbre < 100) {
+            $mat =  "0" . $nbre . "-" . "U" . "/" . substr($request->annee, 2);
+        } else {
+            $mat =  $nbre . "-" . "U" . "/" . substr($request->annee, 2);
         }
         employer::create([
             'matricule' => $mat,
+            'mat_fop' => $request->mat_fop,
             'nin' => $request->nin,
             'nom' => $request->nom,
             'prenom' => $request->prenom,
@@ -118,11 +113,11 @@ class EmployerController extends Controller
             'position_id' => $request->position_id,
             'type_contrat_id' => $request->type_contrat_id,
             'agent' => $request->agent,
-            'ide'=>$nbre,
+            'ide' => $nbre,
             'user_id' => Auth::user()->id
         ]);
 
-        session()->flash("message","identité créer avec succès");
+        session()->flash("message", "identité créer avec succès");
         Flashy::message('identité créer avec succès');
 
         return redirect(route('formation.index'));
@@ -169,10 +164,11 @@ class EmployerController extends Controller
             ->join('indices', 'statuts.indices_id', '=', 'indices.id')
             ->join('classes', 'statuts.classes_id', '=', 'classes.id')
             ->select('statuts.*', 'corps.nom as corp', 'corps.id as corps_id', 'echelons.nom as echelon', 'echelons.id as echelons_id', 'indices.nom as indice', 'indices.id as indices_id', 'classes.nom as classe', 'classes.id as classes_id')
-
             ->where("statuts.id", $data->statut_id)->first();
 
-        $annee = DB::table('classes_corps_echelons_indices_periodes')
+           if(isset($statut))
+           {
+            $annee = DB::table('classes_corps_echelons_indices_periodes')
             ->join('annees', 'classes_corps_echelons_indices_periodes.periodes_id', '=', 'annees.id')
             ->select('classes_corps_echelons_indices_periodes.*', 'annees.*')
             ->Where("classes_corps_echelons_indices_periodes.corps_id", $statut->corps_id)
@@ -180,9 +176,31 @@ class EmployerController extends Controller
             ->Where("classes_corps_echelons_indices_periodes.classes_id", $statut->classes_id)
             ->Where("classes_corps_echelons_indices_periodes.indices_id", $statut->indices_id)
             ->first();
+           }
 
 
-        return view("pages.edit_employer", compact("data", 'role', 'annees', 'avancements', 'formations', 'affectations', 'statut', 'annee'));
+
+        $contrats = DB::table('type_contrats')->get();
+        $contrate = DB::table('type_contrats')
+        ->join("employers","employers.type_contrat_id",'=','type_contrats.id')
+        ->select("type_contrats.id as contrat_id","type_contrats.code_design_contrat as code_design_contrat","employers.*")
+        ->where("employers.id",$id)
+        ->first();
+        $positions = position::all();
+
+        $posi = DB::table('positions')
+        ->join("employers","employers.position_id",'=','positions.id')
+        ->select("positions.id as posi_id","positions.position","employers.*")
+        ->where("employers.id",$id)
+        ->first();
+        if(isset($statut))
+        {
+        return view("pages.edit_employer", compact("data", 'role', 'annees', 'avancements', 'formations', 'affectations', 'statut', 'annee', 'contrats', 'positions','contrate','posi'));
+
+        }
+        return view("pages.edit_employer", compact("data", 'role', 'annees', 'avancements', 'formations', 'affectations', 'statut',  'contrats', 'positions','contrate','posi'));
+
+
     }
 
     /**
@@ -210,7 +228,9 @@ class EmployerController extends Controller
         $update = DB::table('employers')
             ->where('id', $id)
             ->update([
+                'nin' => $request->nin,
                 'nom' => $request->nom,
+                'mat_fop' => $request->mat_fop,
                 'prenom' => $request->prenom,
                 'date_naissance' => $request->date_naissance,
                 'lieu_naissance' => $request->lieu_naissance,
@@ -223,8 +243,12 @@ class EmployerController extends Controller
                 'nombre_charge' => $request->nombre_charge,
                 'naissance' => $request->naissance,
                 'annee_id' => substr($request->date_naissance, 0, -6),
-                'compte_bancaire' => $request->compte_bancaire
-            ]);
+                'compte_bancaire' => $request->compte_bancaire,
+                'annee_id' => substr($request->date_naissance, 0, -6),
+                'position_id' => $request->position_id,
+                'type_contrat_id' => $request->type_contrat_id,
+                'agent' => $request->agent
+                ]);
 
         $role = DB::table('role_user')
             ->join('roles', 'role_user.role_id', '=', 'roles.id')
@@ -254,8 +278,9 @@ class EmployerController extends Controller
             ->where("role_user.user_id", Auth::user()->id)->first();
 
         $datas = DB::table("employers")
-            ->where("type_contrat_id",'=', 1)
-            ->orWhere("type_contrat_id",'=', 2)
+            ->where("type_contrat_id", '=', 1)
+            ->orWhere("type_contrat_id", '=', 2)
+            ->orWhere("type_contrat_id", '=', 0)
             ->orderByRaw("employers.nom")
             ->get();
         return view("pages.liste", compact("role", 'datas'));
