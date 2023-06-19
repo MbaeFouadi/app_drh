@@ -130,11 +130,11 @@ class AffectationController extends Controller
     {
         //
 
-        $composantes = DB::table('composantes')->get();
-        $role = DB::table('role_user')
-            ->join('roles', 'role_user.role_id', '=', 'roles.id')
-            ->select('role_user.*', 'roles.*')
-            ->where("role_user.user_id", Auth::user()->id)->first();
+        // $composantes = DB::table('composantes')->get();
+        // $role = DB::table('role_user')
+        //     ->join('roles', 'role_user.role_id', '=', 'roles.id')
+        //     ->select('role_user.*', 'roles.*')
+        //     ->where("role_user.user_id", Auth::user()->id)->first();
         $affectation = DB::table('affectations')
             ->join('composantes', 'affectations.composante_id', '=', 'composantes.id')
             ->join('services', 'affectations.service_id', '=', 'services.id')
@@ -143,8 +143,35 @@ class AffectationController extends Controller
             ->select('affectations.*', 'composantes.nom as composante', 'composantes.id as composantes_id', 'services.nom as service', 'services.id as services_id', 'fonctions.nom as fonction', 'fonctions.id as fonctions_id', 'annees.annee as annee')
             ->where('affectations.id', $id)->first();
 
-        $annees = DB::table('annees')->get();
-        return view('pages.edit_affectation', compact('role', 'affectation', 'annees', 'composantes'));
+        // $annees = DB::table('annees')->get();
+
+        // $employer = employer::where('user_id', Auth::user()->id)->orderBydesc('id')->first();
+
+
+        // $periodes = DB::table('fonctions')
+        // ->join("periodes", "fonctions.annee_id", "=", "periodes.id")
+        // ->select("periodes.periode", "fonctions.annee_id")
+        // ->distinct()
+        // ->orderByDesc("periodes.periode")
+        // ->get();
+
+
+        $employer = employer::where('user_id', Auth::user()->id)->orderBydesc('id')->first();
+        $composantes = composante::all();
+        $periodes = DB::table('fonctions')
+            ->join("periodes", "fonctions.annee_id", "=", "periodes.id")
+            ->select("periodes.periode", "fonctions.annee_id")
+            ->distinct()
+            ->orderByDesc("periodes.periode")
+            ->get();
+
+        $annees = periodes::all();
+        $role = DB::table('role_user')
+            ->join('roles', 'role_user.role_id', '=', 'roles.id')
+            ->select('role_user.*', 'roles.*')
+            ->where("role_user.user_id", Auth::user()->id)->first();
+
+        return view('pages.edit_affectation', compact('role','employer', 'affectation', 'annees', 'composantes','periodes'));
     }
 
     /**

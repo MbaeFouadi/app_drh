@@ -12,7 +12,6 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <link rel="shortcut icon" href="images/udc.png">
-
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">

@@ -79,6 +79,7 @@ Route::get('/getFonctionByService/{service_id}',[fonctionController::class,'getF
 
 
 
+
 Route::resource('/composante',composantesController::class)->middleware(['auth']);
 Route::resource('/service',serviceController::class)->middleware(['auth']);
 Route::resource('/fonction',fonctionController::class)->middleware(['auth']);
@@ -155,6 +156,12 @@ Route::post('/grilles_indiciaires',[affectationsController::class,'grilles_indic
 Route::get('/grilles_corps',[affectationsController::class,'corps_grille'])->middleware(['auth'])->name('corps_grille');
 Route::get('/recherche_user',[SalaireController::class,'recherche_user'])->middleware(['auth'])->name('recherche_user');
 Route::resource('/salaire',SalaireController::class)->middleware(['auth']);
+Route::get('/composantes',[composantesController::class,'composantes'])->middleware(['auth'])->name('composante');
+Route::post('/composantes/getService',[ComposantesController::class,'getService'])->middleware(['auth'])->name('getService');
+Route::post('/liste_composantes',[composantesController::class,'liste_composantes'])->middleware(['auth'])->name('liste_composantes');
+
+
+
 
 
 

@@ -207,14 +207,14 @@ $nbr = DB::table('conges')->where('motif', 'Demande en cours de traitement')->wh
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="{{ route('recherche') }}" class="nav-link">
-                  <!-- <i class="nav-icon fas fa-asterisk"></i> -->
+                  
                   <i class="nav-icon fas fa-solid fa-minus"></i>
 
                   <p class="text-light">Matricule</p>
                 </a>
-              </li>
+              </li> -->
 
               <li class="nav-item">
                 <a href="{{ route('liste') }}" class="nav-link">
@@ -222,7 +222,16 @@ $nbr = DB::table('conges')->where('motif', 'Demande en cours de traitement')->wh
                   <i class="nav-icon fas fa-solid fa-minus"></i>
 
 
-                  <p class="text-light">Liste employées</p>
+                  <p class="text-light">Listes employées</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('composante') }}" class="nav-link">
+                  <!-- <i class="nav-icon fas fa-asterisk"></i> -->
+                  <i class="nav-icon fas fa-solid fa-minus"></i>
+
+
+                  <p class="text-light">Listes par composantes</p>
                 </a>
               </li>
             </ul>

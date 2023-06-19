@@ -109,4 +109,45 @@ class composantesController extends Controller
         DB::table('composantes')->delete($id);
         return redirect()->route('composante.index');
     }
+
+    public function composantes()
+    {
+        $role = DB::table('role_user')
+        ->join('roles', 'role_user.role_id', '=', 'roles.id')
+        ->select('role_user.*','roles.*')
+        ->where("role_user.user_id",Auth::user()->id)->first();
+        $composantes = composante::all();
+        return view("pages.composantes",compact('role','composantes'));
+    }
+
+    public function getService(Request $request)
+    {
+        $services = DB::table('composantes')
+        ->join("services", "composantes.id", "=", "services.composante_id")
+        ->where("composante_id", $request->composantes_id)
+        ->select("services.nom as service", "services.id as services_id", "composantes.*")
+        ->orderByDesc("service")
+        ->pluck("service", "services_id");
+        return response()->json($services);
+    }
+
+    public function liste_composantes( Request $request)
+    {
+        $role = DB::table('role_user')
+        ->join('roles', 'role_user.role_id', '=', 'roles.id')
+        ->select('role_user.*','roles.*')
+        ->where("role_user.user_id",Auth::user()->id)->first();
+        $employers=DB::table("employers")
+        ->join("affecation_employers","employers.id","affecation_employers.employer_id")
+        ->join("affectations","affecation_employers.affectation_id","affectations.id")
+        ->join("composantes","affectations.composante_id","composantes.id")
+        ->where("composante_id",$request->composantes_id)
+        ->where("service_id",$request->services_id)
+        ->select("employers.*","affecation_employers.*","affectations.*","composantes.nom as composante")
+        ->orderBy('employers.nom','asc')
+        ->get();
+
+        return view("pages.listes_composantes",compact('employers','role'));
+
+    }
 }

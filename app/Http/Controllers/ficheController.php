@@ -75,6 +75,11 @@ class ficheController extends Controller
         ->select('affecation_employers.*','affectations.*')
         ->where("affecation_employers.employer_id",$employer->id)->get();
 
+        $affectations = DB::table('affecation_employers')
+        ->join('affectations', 'affecation_employers.affectation_id', '=', 'affectations.id')
+        ->select('affecation_employers.*','affectations.*')
+        ->where("affecation_employers.employer_id",$employer->id)->first();
+
         $composante= DB::table('affectations')
 
         ->join('affecation_employers', 'affecation_employers.affectation_id', '=', 'affectations.id')
@@ -148,6 +153,11 @@ class ficheController extends Controller
         ->select('affecation_employers.*','affectations.*')
         ->where("affecation_employers.employer_id",$employer->id)->get();
 
+        $affectations = DB::table('affecation_employers')
+        ->join('affectations', 'affecation_employers.affectation_id', '=', 'affectations.id')
+        ->select('affecation_employers.*','affectations.*')
+        ->where("affecation_employers.employer_id",$employer->id)->first();
+
         $composante= DB::table('affectations')
 
         ->join('affecation_employers', 'affecation_employers.affectation_id', '=', 'affectations.id')
@@ -158,6 +168,6 @@ class ficheController extends Controller
         ->orderByDesc('affecation_employers.id')
         ->where("affecation_employers.employer_id",$employer->id)
         ->first();
-        return view('pages.fiche',compact('employer','formations','statut','grille','avancements','grilles','affectation','composante','employers','date'));
+        return view('pages.fiche',compact('employer','formations','statut','grille','avancements','grilles','affectation','composante','employers','date','affectations'));
     }
 }

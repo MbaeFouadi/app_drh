@@ -38,7 +38,7 @@
       <div class="etat"><br>
         <div class="row">
           <div class="col-6">
-            <h2>{{$employer->nom }} {{$employer->prenom }}</h2>
+            <h2> &nbsp;{{$employer->nom }} {{$employer->prenom }}</h2>
           </div>
           <div class="col-4 " style="text-align:right;font-size:23px"> <span><strong>Matricule N°</strong></span> @if ($employer->mat_fop==NULL)
           {{$employer->matricule }}
@@ -47,20 +47,35 @@
           @endif </div>
         </div>
         <div class="row"  id="taille">
-          <div class="col-2">Ne(é) le</div>
-          <div class="col-10"> {{\Carbon\Carbon::parse($employer->date_naissance)->translatedFormat('d/m/Y')}} à {{$employer->lieu_naissance}}</div>
+          @if ($employer->sexe=="M")
+          <div class="col-2"> &nbsp; Né le :</div>
+          @else($employer->sexe=="F")
+          <div class="col-2"> &nbsp; Née le :</div>
+          @endif
+        
+          <div class="col-4"> {{\Carbon\Carbon::parse($employer->date_naissance)->translatedFormat('d/m/Y')}} à {{$employer->lieu_naissance}}</div>
+          <div class="col-1"> &nbsp; Email :</div>
+          <div class="col-5">{{$employer->email}}</div>
         </div>
         <div class="row">
-          <div class="col-2">Demeurant à</div>
-          <div class="col-10">{{$employer->adresse }}</div>
+          <div class="col-2"> &nbsp; Demeurant à :</div>
+          <div class="col-4">{{$employer->adresse }}</div>
+          <div class="col-1"> &nbsp; Sexe :</div>
+          <div class="col-5">{{$employer->sexe}}</div>
         </div>
         <div class="row">
-          <div class="col-2">Telehone : {{$employer->telephone }}</div>
-          <div class="col-10"> Email:{{$employer->email}}</div>
+          <div class="col-2">&nbsp; Téléhone :</div>
+          <!-- <div class="col-10"> Email:{{$employer->email}}</div> -->
+          <div class="col-10">{{$employer->telephone }}</div>
         </div>
+        <!-- <div class="row">
+          <div class="col-2">&nbsp; Email: </div>
+         
+          <div class="col-10">{{$employer->email}}</div>
+        </div> -->
         <div class="row">
-          <div class="col-2">Sexe :{{$employer->sexe}}</div>
-          <div class="col-10"> {{$employer->statut }} {{$employer->nombre_enfant }} Enfant dont {{$employer->nombre_charge }} charge Né(e) en {{$employer->naissance }}</div>
+          <!-- <div class="col-2"> &nbsp; Sexe :{{$employer->sexe}}</div> -->
+          <div class="col-10">&nbsp; {{$employer->statut }} {{$employer->nombre_enfant }} Enfant dont {{$employer->nombre_charge }} charge Né(e) en {{$employer->naissance }}</div>
         </div>
         @if($formations->count()>0)
       </div><br><br>
@@ -68,7 +83,7 @@
       <div class="formation">
         <div class="row"  id="taille">
           @foreach ($formations as $formation)
-          <div class="col-md-6">{{$formation->annee }} {{$formation->diplome }} </div>
+          <div class="col-md-6">&nbsp; {{$formation->annee }} {{$formation->diplome }} </div>
           <div class="col-md-6"> {{$formation->lieu }} {{$formation->genre }} </div>
           @endforeach
 
@@ -85,18 +100,22 @@
 
       </div>
       <div class="statut"  id="taille">
-        <div class="">Recruté(e) le {{\Carbon\Carbon::parse($statut->date_re)->translatedFormat('d/m/Y')}} par {{$statut->type}} N°: {{$statut->note}} du {{\Carbon\Carbon::parse($statut->date_dec)->translatedFormat('d/m/Y')}}</div>
+        <div class="">&nbsp; @if ($employer->sexe=="M")
+        Recruté
+        @else($employer->sexe=="F")
+        Recrutée
+        @endif  le {{\Carbon\Carbon::parse($statut->date_re)->translatedFormat('d/m/Y')}} par {{$statut->type}} N°: {{$statut->note}} du {{\Carbon\Carbon::parse($statut->date_dec)->translatedFormat('d/m/Y')}}</div>
         <div>
           <div class="row">
-            <div class="col-md-4">Corps: {{$grille->corp }}</div>
-            <div class="col-md-4">{{$grille->classe }} Classe</div>
-            <div class="col-md-4">Echelon:{{$grille->echelon }}</div>
+            <div class="col-md-4">&nbsp; Corps: {{$grille->corp }}</div>
+            <div class="col-md-4">&nbsp; Classe: {{$grille->classe }}</div>
+            <div class="col-md-4">&nbsp; Echelon: {{$grille->echelon }}</div>
 
 
           </div>
                  </div>
-        <div>Indice:{{$grille->indice}}</div>
-        <div> Ministere d'origine: {{$statut->ministere}}</div><br>
+        <div>&nbsp; Indice:{{$grille->indice}}</div>
+        <div>&nbsp; Ministere d'origine: {{$statut->ministere}}</div><br>
         @endisset
 
         @if($avancements->count()>0)
@@ -106,13 +125,13 @@
 
       <div class="avancement"  id="taille">
         @foreach ($avancements as $avancement)
-        <div class="">{{$avancement->type_av}} le {{\Carbon\Carbon::parse($avancement->date_avan)->translatedFormat('d/m/Y')}} par {{$avancement->type}}  {{$avancement->note}} du {{\Carbon\Carbon::parse($avancement->date_dec)->translatedFormat('d/m/Y')}}</div>
+        <div class="">&nbsp; {{$avancement->type_av}} le {{\Carbon\Carbon::parse($avancement->date_avan)->translatedFormat('d/m/Y')}} par {{$avancement->type}}  {{$avancement->note}} du {{\Carbon\Carbon::parse($avancement->date_dec)->translatedFormat('d/m/Y')}}</div>
         <div class="row">
-        <div class="col-md-4">Corps: {{$avancement->corp }}</div>
-            <div class="col-md-4">{{$avancement->classe }} Classe</div>
-            <div class="col-md-4">Echelon:{{$avancement->echelon }}</div>
+        <div class="col-md-4">&nbsp; Corps: {{$avancement->corp }}</div>
+            <div class="col-md-4">&nbsp; Classe: {{$avancement->classe }} </div>
+            <div class="col-md-4">&nbsp; Echelon: {{$avancement->echelon }}</div>
         </div>
-        <div>Indice:{{$avancement->indice}}</div><br><br>
+        <div>&nbsp; Indice:{{$avancement->indice}}</div><br>
         @endforeach
         @endif
 
@@ -125,17 +144,20 @@
         <div class="row">
           <div class="col-md-9">
 
-            <div>Composante : {{ $composante->composante }}</div>
-            <div>Structure :{{ $composante->service }}</div>
-            <div>N° Poste de travail:{{ $composante->numero_post }}</div>
-            <div>Fonction: {{ $composante->nom }}</div><br>
-            <div>Position : {{$employers->position}}</div>
+            <div>&nbsp; Composante : {{ $composante->composante }}</div>
+            <div>&nbsp; Structure :{{ $composante->service }}</div>
+            <div>&nbsp; N° Poste de travail:{{ $composante->numero_post }}</div>
+            <div>&nbsp; Fonction: {{ $composante->nom }}</div>
+            <div>&nbsp; Corps : {{$composante->corps}}</div>
+
+            <div>&nbsp; Position : {{$employers->position}}</div>
 
 
-            <br>
-            @endisset
 
-            <div  id="taille">Reglement par virement bancaire sur le compte SNPSF N°: {{$employer->compte_bancaire}}</div>
+            
+            @endisset <br> <br>
+
+            <div  id="taille">&nbsp; Reglement par virement bancaire sur le compte SNPSF N°: {{$employer->compte_bancaire}}</div>
           </div>
 
           <div class="col-md-3 aff"  id="taille">
